@@ -125,6 +125,13 @@
         .district-option-name { font-size: 15px; color: #2C2416; font-weight: 500; }
         .district-option-check { color: #CCB486; font-size: 16px; display: none; }
         .district-option.selected .district-option-check { display: block; }
+        .district-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .district-grid-item { background: #fff; border-radius: 10px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; min-height: 70px; }
+        .district-grid-item:active { background: #FAF8F4; }
+        .district-grid-item.selected { border-color: #CCB486; background: rgba(204,180,134,0.08); }
+        .district-grid-item .district-option-name { font-size: 14px; text-align: center; }
+        .district-grid-item .district-option-check { display: none; font-size: 14px; margin-top: 4px; }
+        .district-grid-item.selected .district-option-check { display: block; }
 
         /* --- 九宫格页面 --- */
         #page-grid .content-area { background: #fff; }
@@ -950,18 +957,15 @@
         function openDistrictSheet() {
             const overlay = document.getElementById('district-sheet-overlay');
             const body = document.getElementById('district-sheet-body');
-            let html = '';
-            ['center', 'suburb', 'outer'].forEach(zone => {
-                const cfg = districtZones[zone];
-                html += `<div class="district-group-title">${cfg.label}</div>`;
-                cfg.keys.forEach(key => {
-                    const d = windowData[key];
-                    html += `<div class="district-option" data-key="${key}" onclick="selectDistrict('${key}')">
-                        <span class="district-option-name">${d.name}</span>
-                        <span class="district-option-check">✓</span>
-                    </div>`;
-                });
+            let html = '<div class="district-grid">';
+            Object.keys(windowData).forEach(key => {
+                const d = windowData[key];
+                html += `<div class="district-grid-item" data-key="${key}" onclick="selectDistrict('${key}')">
+                    <span class="district-option-name">${d.name}</span>
+                    <span class="district-option-check">✓</span>
+                </div>`;
             });
+            html += '</div>';
             body.innerHTML = html;
             overlay.classList.add('active');
         }
