@@ -43,7 +43,7 @@
 
         /* --- 横向拖动轴 --- */
         #page-axis .content-area { padding: 60px 0; background-color: #fff; height: calc(100% - 120px); overflow: hidden; }
-        .axis-scroll-container { overflow-x: auto; height: 100%; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
+        .axis-scroll-container { overflow-x: auto; overflow-y: hidden; height: 100%; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .axis-scroll-container::-webkit-scrollbar { display: none; }
         .axis-track { position: relative; display: flex; gap: 24px; padding: 40px 20px; min-width: 100%; width: max-content; }
         .axis-line { position: absolute; top: 68px; left: 0; right: 0; height: 2px; background: repeating-linear-gradient(to right, #E5DDD0, #E5DDD0 6px, transparent 6px, transparent 12px); z-index: 1; }
