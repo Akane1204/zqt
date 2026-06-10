@@ -888,9 +888,10 @@
 
             let html = '<div class="flowchart">';
             flowData.forEach((node, index) => {
+                const isFirst = index === 0;
                 if (node.type === 'window') {
                     html += `
-                        <div class="flow-node window-step">
+                        <div class="flow-node window-step${isFirst ? ' active' : ''}">
                             <div class="node-header"><div class="node-number">${index + 1}</div><div class="node-title">${node.title}</div><div class="node-icon">▼</div></div>
                             <div class="node-details">
                                 <div class="flow-rich-text">
@@ -906,7 +907,7 @@
                         </div>`;
                 } else {
                     html += `
-                        <div class="flow-node">
+                        <div class="flow-node${isFirst ? ' active' : ''}">
                             <div class="node-header"><div class="node-number">${index + 1}</div><div class="node-title">${node.title}</div><div class="node-icon">▼</div></div>
                             <div class="node-details"><div class="flow-rich-text">${node.content}</div></div>
                         </div>`;
