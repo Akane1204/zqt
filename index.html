@@ -347,6 +347,17 @@
         <div class="content-area" id="article-content"></div>
     </div>
 
+    <!-- ========== 临港新片区政策列表页 ========== -->
+    <div id="page-lingang" class="page hidden">
+        <div class="header">
+            <button class="back-btn" data-back="grid">‹ 返回</button>
+            <div class="page-title">临港新片区政策</div>
+        </div>
+        <div class="content-area" style="padding: 0; background: #F5F0E8;">
+            <div class="doc-list" id="lingang-content"></div>
+        </div>
+    </div>
+
     <!-- ========== 动作面板（线上/线下办理） ========== -->
     <div id="overlay-action" class="overlay hidden">
         <div class="action-sheet" onclick="event.stopPropagation()">
@@ -490,13 +501,21 @@
                 { id: 's3', step: 'STEP 03', title: '印章刻制', desc: '到公安备案单位刻制公章、财务章等法定企业印鉴。', flow: [
                     { title: '凭照刻章', content: '<p>凭营业执照到公安局指定备案刻章点刻制全套印章，通常包括：</p><p>• 企业公章（必备）</p><p>• 财务专用章</p><p>• 法定代表人名章</p><p>• 合同专用章（按需）</p><p>• 发票专用章（按需）</p><p>上海部分区域试点电子印章，与营业执照同步发放，可在线申请。</p>' }
                 ]},
-                { id: 's4', step: 'STEP 04', title: '银行开户与税务登记', desc: '开立对公银行账户，并向税务机关申报纳税身份和发票资格。', flow: [
-                    { title: '银行开户', content: '<p>预约银行对公账户开户，需准备：</p><p>• 营业执照正副本原件</p><p>• 法人身份证原件</p><p>• 公章、财务章、法人章</p><p>• 完整经营背景资料（反洗钱审查）</p><p>法人需亲自到场办理，开户时间约1-3个工作日。</p>' },
-                    { title: '税务登记与社保开户', content: '<p>税务登记自动同步至税务系统，需在线完成：</p><p>• 税务信息确认（领取执照后30天内）</p><p>• 税种核定及发票申领</p><p>• 社保开户整合至企业注册流程，实现"一表填报"</p><p>• 公积金开户需另行至上海市住房公积金管理中心办理</p>' }
+                { id: 's4', step: 'STEP 04', title: '银行开户', desc: '开立企业基本存款账户，用于日常资金收付和税费缴纳。', flow: [
+                    { title: '预约开户', content: '<p>选择银行并预约对公账户开户，需携带：</p><p>• 营业执照正副本原件</p><p>• 法定代表人身份证原件</p><p>• 公章、财务章、法人章</p><p>• 租赁合同或经营场所证明</p><p>• 完整经营背景资料（反洗钱审查）</p>' },
+                    { title: '现场办理', content: '<p>法定代表人须亲自到场，填写开户申请表并签署相关协议。</p><p>银行审核通过后，1-3个工作日内发放开户许可证。</p><p>基本户是企业唯一的资金结算账户，工资发放、税费缴纳均通过此账户。</p>' }
                 ]},
-                { id: 's5', step: 'STEP 05', title: '社保与公积金开户', desc: '为员工开立五险一金账户，是用人单位的法定义务。', flow: [
-                    { title: '社保开户', content: '<p>社保登记已整合至"一窗通"企业注册流程，在填报企业信息时一并完成。</p><p>需提供员工劳动合同及身份证信息，用于登记参保人员。</p>' },
-                    { title: '公积金开户', content: '<p>至上海市住房公积金管理中心或通过线上系统办理：</p><p>• 营业执照副本原件及复印件（加盖公章）</p><p>• 法定代表人身份证复印件</p><p>• 经办人身份证原件及复印件</p><p>• 《单位登记表》（官网下载或现场填写）</p><p>• 公章、法人章、银行开户许可证</p><p>材料齐全情况下1-2个工作日完成开户。</p>' }
+                { id: 's5', step: 'STEP 05', title: '税务登记', desc: '向税务机关申报纳税身份，确定适用税种与发票使用资格。', flow: [
+                    { title: '税务信息确认', content: '<p>领取营业执照后30天内，登录上海市电子税务局完成：</p><p>• 税务登记信息确认</p><p>• 财务会计制度备案</p><p>• 银行账号报告</p><p>• 税种核定（增值税、企业所得税等）</p>' },
+                    { title: '发票申领', content: '<p>根据经营需要申请发票：</p><p>• 确定发票类型（增值税专用发票/普通发票）</p><p>• 申请税控设备或电子发票资质</p><p>• 首次申领发票需法人实名认证</p><p>• 小规模纳税人可申请代开专票</p>' }
+                ]},
+                { id: 's6', step: 'STEP 06', title: '社保开户', desc: '为员工办理社会保险登记，是用人单位的法定义务。', flow: [
+                    { title: '社保登记', content: '<p>社保开户已整合至"一窗通"企业注册流程，在填报企业信息时一并完成，无需单独办理。</p><p>需提供员工劳动合同及身份证信息，用于登记参保人员。</p><p>社保包含五险：养老保险（单位16%+个人8%）、医疗保险（单位9.5%+个人2%）、失业保险（单位0.5%+个人0.5%）、工伤保险（单位0.16%-1.52%）。</p>' },
+                    { title: '员工参保登记', content: '<p>用工之日起30日内为员工办理参保：</p><p>• 登录上海市人力资源和社会保障自助经办系统</p><p>• 录入员工基本信息和劳动合同信息</p><p>• 确认缴费基数（每年7月调整）</p><p>• 按月申报缴纳社保费</p>' }
+                ]},
+                { id: 's7', step: 'STEP 07', title: '公积金开户', desc: '为员工开立住房公积金账户，按月缴存住房储金。', flow: [
+                    { title: '单位开户', content: '<p>至上海市住房公积金管理中心或通过线上系统办理，需携带：</p><p>• 营业执照副本原件及复印件（加盖公章）</p><p>• 法定代表人身份证复印件</p><p>• 经办人身份证原件及复印件</p><p>• 《单位登记表》（官网下载或现场填写）</p><p>• 公章、法人章、银行开户许可证</p><p>材料齐全情况下1-2个工作日完成。</p>' },
+                    { title: '缴存标准与员工登记', content: '<p>缴存比例：单位和个人各5%-7%。</p><p>2025.7-2026.6缴存基数上限36,921元，下限2,690元。</p><p>月缴存额上限5,222元（14%），下限270元（10%）。</p><p>录用员工后30日内办理个人账户设立或转入手续。</p>' }
                 ]}
             ]},
             'cancel_simple': { title: '简易注销导航', modules: [
@@ -526,10 +545,20 @@
                         { title: '领取注销证明', content: '<p>审核通过后：</p><p>• 领取《准予注销登记通知书》</p><p>• 营业执照正副本由登记机关收回</p><p>• 个人独资企业资格终止</p><p>• 凭注销证明办理银行账户销户等后续事宜</p><p><strong>注：</strong>已领取纸质版营业执照的缴回营业执照正、副本。</p>' }
                     ]
                 }},
-                { id: 'cs5', step: 'STEP 05', title: '后续事项处理', desc: '清理银行账户、印章、社保公积金等附属事项，企业方可彻底退出。', flow: [
-                    { title: '银行账户销户', content: '<p>凭《准予注销登记通知书》到开户银行办理：</p><p>• 基本户销户</p><p>• 一般户销户</p><p>• 结清账户余额</p><p>• 交回开户许可证（如有）</p>' },
-                    { title: '公章缴销', content: '<p>到公安局指定刻章机构办理：</p><p>• 缴销企业公章</p><p>• 缴销财务章、法人章等全部印章</p><p>• 获取印章缴销证明</p>' },
-                    { title: '社保公积金账户注销', content: '<p>分别至社保和公积金管理中心办理：</p><p>• 社保账户注销（无欠费）</p><p>• 公积金账户注销（余额清零）</p><p>• 获取相关注销证明</p>' }
+                { id: 'cs5', step: 'STEP 05', title: '社保账户注销', desc: '到社保中心办理单位社保账户注销，确认无欠费。', flow: [
+                    { title: '办理材料', content: '<p>到单位参保所在区社保中心办理，需携带：</p><p>• 《准予注销登记通知书》原件及复印件</p><p>• 营业执照注销证明</p><p>• 法定代表人身份证复印件</p><p>• 经办人身份证原件及授权委托书</p><p>• 《社会保险登记证》（如有）</p>' },
+                    { title: '办理条件与流程', content: '<p><strong>前置条件：</strong>确认所有员工已办理减员、无欠缴社保费。如有欠费须先补缴。</p><p>登录上海市人力资源和社会保障自助经办系统，逐一为离职员工办理"社保转出"。</p><p>全部员工减员完成后，携带材料到窗口申请注销。</p><p>办理时限：材料齐全当场办结。</p>' }
+                ]},
+                { id: 'cs6', step: 'STEP 06', title: '公积金账户注销', desc: '到公积金缴存网点办理单位账户注销，余额清零。', flow: [
+                    { title: '办理材料', content: '<p>到单位住房公积金缴存银行网点办理，需携带：</p><p>• 《准予注销登记通知书》原件及复印件</p><p>• 法定代表人身份证复印件</p><p>• 经办人身份证原件及授权委托书</p><p>• 公章、法人章</p>' },
+                    { title: '办理条件与流程', content: '<p><strong>前置条件：</strong>所有员工公积金账户已封存或转移，单位账户余额清零。</p><p>如有员工未提取公积金，需协助员工办理转移或提取手续后再注销单位账户。</p><p>办理时限：材料齐全1-3个工作日。</p>' }
+                ]},
+                { id: 'cs7', step: 'STEP 07', title: '银行账户销户', desc: '到开户银行办理对公账户销户，先一般户后基本户。', flow: [
+                    { title: '办理材料', content: '<p>到开户银行柜台办理，需携带：</p><p>• 《准予注销登记通知书》原件</p><p>• 法定代表人身份证原件</p><p>• 剩余支票、汇票等空白凭证</p><p>• 开户许可证（如有）</p><p>• 公章、财务章、法人章</p>' },
+                    { title: '办理顺序', content: '<p><strong>办理顺序：</strong>先销一般户，再销基本户。</p><p>结清账户余额，可转入法定代表人个人账户。</p><p>交回未使用的空白支票和汇票。</p><p>办理时限：1-5个工作日。</p>' }
+                ]},
+                { id: 'cs8', step: 'STEP 08', title: '印章缴销', desc: '到公安备案刻章机构缴销全部企业印章。', flow: [
+                    { title: '办理流程', content: '<p>到公安局指定刻章机构或原刻章点办理，需携带：</p><p>• 《准予注销登记通知书》原件</p><p>• 法定代表人身份证复印件</p><p>• 全部印章（公章、财务章、法人章、合同章、发票章等）</p><p>办理完毕后获取《印章缴销证明》。</p><p><strong>提示：</strong>部分地区支持在线预约印章缴销，可提前致电确认。</p>' }
                 ]}
             ]},
             'cancel_normal': { title: '普通注销导航', modules: [
@@ -560,17 +589,27 @@
                         { title: '审核与注销', content: '<p>登记机关审核材料：</p><p>• 材料齐全、符合法定形式的，予以受理</p><p>• 审核时限：约10-15个工作日</p><p>• 审核通过后，发放《准予注销登记通知书》</p><p>• 营业执照正副本由登记机关收回</p><p>• 个人独资企业资格终止</p><p><strong>注：</strong>已领取纸质版营业执照的缴回营业执照正、副本。</p>' }
                     ]
                 }},
-                { id: 'cn5', step: 'STEP 05', title: '后续事项处理', desc: '清理银行账户、印章、社保公积金等附属事项，不留法律隐患。', flow: [
-                    { title: '银行账户销户', content: '<p>凭《准予注销登记通知书》到开户银行办理：</p><p>• 基本户销户</p><p>• 一般户销户</p><p>• 结清账户余额</p><p>• 交回开户许可证</p>' },
-                    { title: '公章缴销', content: '<p>到公安局指定刻章机构办理：</p><p>• 缴销企业公章、财务章、法人章等全部印章</p><p>• 获取印章缴销证明</p>' },
-                    { title: '社保公积金账户注销', content: '<p>分别至社保和公积金管理中心办理账户注销：</p><p>• 社保账户注销（确认无欠费、无在保人员）</p><p>• 公积金账户注销（余额清零或转移）</p><p>• 获取相关注销证明</p>' }
+                { id: 'cn5', step: 'STEP 05', title: '社保账户注销', desc: '到社保中心办理单位社保账户注销，确认无欠费。', flow: [
+                    { title: '办理材料', content: '<p>到单位参保所在区社保中心办理，需携带：</p><p>• 《准予注销登记通知书》原件及复印件</p><p>• 营业执照注销证明</p><p>• 法定代表人身份证复印件</p><p>• 经办人身份证原件及授权委托书</p><p>• 《社会保险登记证》（如有）</p>' },
+                    { title: '办理条件与流程', content: '<p><strong>前置条件：</strong>确认所有员工已办理减员、无欠缴社保费。如有欠费须先补缴。</p><p>登录上海市人力资源和社会保障自助经办系统，逐一为离职员工办理"社保转出"。</p><p>全部员工减员完成后，携带材料到窗口申请注销。</p><p>办理时限：材料齐全当场办结。</p>' }
+                ]},
+                { id: 'cn6', step: 'STEP 06', title: '公积金账户注销', desc: '到公积金缴存网点办理单位账户注销，余额清零。', flow: [
+                    { title: '办理材料', content: '<p>到单位住房公积金缴存银行网点办理，需携带：</p><p>• 《准予注销登记通知书》原件及复印件</p><p>• 法定代表人身份证复印件</p><p>• 经办人身份证原件及授权委托书</p><p>• 公章、法人章</p>' },
+                    { title: '办理条件与流程', content: '<p><strong>前置条件：</strong>所有员工公积金账户已封存或转移，单位账户余额清零。</p><p>如有员工未提取公积金，需协助员工办理转移或提取手续后再注销单位账户。</p><p>办理时限：材料齐全1-3个工作日。</p>' }
+                ]},
+                { id: 'cn7', step: 'STEP 07', title: '银行账户销户', desc: '到开户银行办理对公账户销户，先一般户后基本户。', flow: [
+                    { title: '办理材料', content: '<p>到开户银行柜台办理，需携带：</p><p>• 《准予注销登记通知书》原件</p><p>• 法定代表人身份证原件</p><p>• 剩余支票、汇票等空白凭证</p><p>• 开户许可证</p><p>• 公章、财务章、法人章</p>' },
+                    { title: '办理顺序', content: '<p><strong>办理顺序：</strong>先销一般户，再销基本户。</p><p>结清账户余额，可转入法定代表人个人账户。</p><p>交回未使用的空白支票和汇票。</p><p>办理时限：1-5个工作日。</p>' }
+                ]},
+                { id: 'cn8', step: 'STEP 08', title: '印章缴销', desc: '到公安备案刻章机构缴销全部企业印章。', flow: [
+                    { title: '办理流程', content: '<p>到公安局指定刻章机构或原刻章点办理，需携带：</p><p>• 《准予注销登记通知书》原件</p><p>• 法定代表人身份证复印件</p><p>• 全部印章（公章、财务章、法人章、合同章、发票章等）</p><p>办理完毕后获取《印章缴销证明》。</p><p><strong>提示：</strong>部分地区支持在线预约印章缴销，可提前致电确认。</p>' }
                 ]}
             ]}
         };
 
         // 经营服务大厅数据
         const gridData = [
-            { id: 'g1', name: '公司变更登记', group: '企业事务', icon: '<svg viewBox="0 0 24 24" fill="#CCB486"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h5v7h7v9H6z"/><path d="M8 12h8v1.5H8zm0 3h8v1.5H8zm0 3h5v1.5H8z"/></svg>', drawers: [
+            { id: 'g1', name: '公司变更登记', group: '商事登记', icon: '<svg viewBox="0 0 24 24" fill="#2E86AB"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h5v7h7v9H6z"/><path d="M8 12h8v1.5H8zm0 3h8v1.5H8zm0 3h5v1.5H8z"/></svg>', drawers: [
                 { category: '变更登记事项', items: [
                     { title: 'Q: 变更公司名称需要哪些材料？', content: '<p>A: 向登记机关提出申请，需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 修改后的公司章程或章程修正案</p><p>3. 修改公司章程的决议或决定</p><p>4. 经办人身份证明复印件</p>' },
                     { title: 'Q: 变更经营范围有什么要求？', content: '<p>A: 应按国家市场监管总局公布的经营项目分类标准登记。涉及前置许可的项目，须先取得批准文件或许可证件。</p>' },
@@ -581,7 +620,7 @@
                     { title: 'Q: 减少注册资本有什么限制？', content: '<p>A: 须自公告之日起45日后方可申请变更登记。需提交减资公告、股东会决议等材料。</p>' }
                 ]}
             ]},
-            { id: 'g1b', name: '分支机构管理', group: '企业事务', icon: '<svg viewBox="0 0 24 24" fill="#A68E5D"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>', drawers: [
+            { id: 'g1b', name: '分支机构管理', group: '商事登记', icon: '<svg viewBox="0 0 24 24" fill="#5A8A6A"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>', drawers: [
                 { category: '分公司', items: [
                     { title: 'Q: 分公司和子公司有什么区别？', content: '<p>A: 分公司不具有法人资格，民事责任由总公司承担；子公司具有独立法人资格，独立承担民事责任。分公司设立手续更简便，但不能独立享受税收优惠。</p>' },
                     { title: 'Q: 设立分公司需要哪些材料？', content: '<p>A: 需提交分支机构登记申请书、经营场所使用文件、负责人任职信息及身份证明、隶属公司营业执照复印件。</p>' }
@@ -590,7 +629,7 @@
                     { title: 'Q: 在上海跨区经营需要备案吗？', content: '<p>A: 在本市范围内跨区设立经营场所的，若已办理分支机构登记则无需另行备案。仅从事经营活动未设立分支机构的，需向经营场所所在地登记机关报告。</p>' }
                 ]}
             ]},
-            { id: 'g1c', name: '信息公示与年报', group: '企业事务', icon: '<svg viewBox="0 0 24 24" fill="#8B7355"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>', drawers: [
+            { id: 'g1c', name: '信息公示与年报', group: '商事登记', icon: '<svg viewBox="0 0 24 24" fill="#8B1A1A"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>', drawers: [
                 { category: '年度报告', items: [
                     { title: 'Q: 企业年报什么时候报？', content: '<p>A: 每年1月1日至6月30日，通过国家企业信用信息公示系统报送上一年度年度报告。逾期未报将被列入经营异常名录。</p>' },
                     { title: 'Q: 年报需要填哪些内容？', content: '<p>A: 包括企业基本信息、股东出资情况、资产状况、党建信息、社保信息等。上市公司还需填报股权变更及担保信息。</p>' }
@@ -743,7 +782,8 @@
                 ]}
             ]},
 
-            { id: 'g6', name: '各区政策', group: '政策法规', icon: '<svg viewBox="0 0 24 24" fill="#5A8A9A"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>', isRegion: true }
+            { id: 'g6', name: '各区政策', group: '政策法规', icon: '<svg viewBox="0 0 24 24" fill="#5A8A9A"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>', isRegion: true },
+            { id: 'g6b', name: '临港新片区政策', group: '政策法规', icon: '<svg viewBox="0 0 24 24" fill="#E85D04"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>', isLingang: true }
         ];
 
         // 各区政策数据
@@ -825,13 +865,41 @@
             ]}
         };
 
+        const lingangPolicies = [
+            { q: '临港新片区特殊税收优惠政策', a: '<p>新片区内符合条件的集成电路、人工智能、生物医药、航空航天等重点产业企业，自设立之日起5年内减按15%的税率征收企业所得税。</p><p>对新片区内从事集成电路、人工智能等关键领域核心环节研发的企业，给予研发费用加计扣除优惠。</p>' },
+            { q: '临港新片区人才落户放宽政策', a: '<p>新片区实行更加宽松的人才引进政策：</p><p>• 重点企业核心人才居转户年限缩短至3年</p><p>• 符合条件的紧缺技术人才可直接落户</p><p>• 应届毕业生落户打分给予额外加分</p><p>• 海外高层次人才享受"一站式"落户服务</p>' },
+            { q: '临港新片区跨境金融便利化', a: '<p>新片区在跨境资金流动方面享有特殊政策：</p><p>• 跨境贸易结算便利化，优质企业可凭指令直接办理</p><p>• 跨境投融资自由化，简化审批流程</p><p>• 离岸贸易金融服务创新试点</p><p>• 本外币合一跨境资金池业务</p>' },
+            { q: '临港新片区数据跨境流动试点', a: '<p>新片区是全国首个开展数据跨境流动试点的区域：</p><p>• 建立数据跨境流动分类分级管理制度</p><p>• 一般数据自由流动，重要数据安全评估后流动</p><p>• 设立数据跨境服务中心，提供一站式合规咨询</p><p>• 覆盖智能网联汽车、金融、医疗等重点领域</p>' },
+            { q: '临港新片区贸易便利化政策', a: '<p>新片区实行"一线放开、二线安全高效管住"的货物进出境制度：</p><p>• 一线进出境货物简化申报</p><p>• 区内企业之间货物流转免征增值税</p><p>• 保税加工货物内销按实际状态征税</p><p>• 国际中转集拼业务便利化</p>' },
+            { q: '临港新片区产业扶持专项资金', a: '<p>新片区设立专项产业扶持资金，覆盖：</p><p>• 集成电路：EDA工具研发、芯片设计最高补贴3000万</p><p>• 人工智能：算力中心建设、算法创新最高补贴2000万</p><p>• 生物医药：创新药研发、临床试验最高补贴1亿</p><p>• 航空航空：航空发动机、核心零部件研发最高补贴5000万</p><p>• 新能源：氢能、储能技术产业化最高补贴1000万</p>' }
+        ];
+
+        function renderLingangPolicies() {
+            const container = document.getElementById('lingang-content');
+            container.innerHTML = lingangPolicies.map((p, i) => `
+                <div class="doc-item" data-idx="${i}" style="cursor:pointer;">
+                    <div class="doc-title">${p.q}</div>
+                    <div class="doc-meta"><span class="meta-tag">临港新片区</span></div>
+                </div>
+            `).join('');
+            container.querySelectorAll('.doc-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const idx = parseInt(item.getAttribute('data-idx'));
+                    const policy = lingangPolicies[idx];
+                    renderArticle(policy.q, policy.a, '临港新片区管委会');
+                    document.querySelector('#page-article .back-btn').setAttribute('data-back', 'lingang');
+                    switchPage('page-article', 'forward');
+                });
+            });
+        }
+
         // ============================================================
         //  3. 状态与 DOM 控制
         // ============================================================
         let currentAxisModuleData = null;
         let currentAxisKey = null;
         let currentCancelType = null;
-        const pages = { home: document.getElementById('page-home'), axis: document.getElementById('page-axis'), 'cancel-type': document.getElementById('page-cancel-type'), flow: document.getElementById('page-flow'), grid: document.getElementById('page-grid'), drawer: document.getElementById('page-drawer'), region: document.getElementById('page-region'), policy: document.getElementById('page-policy'), article: document.getElementById('page-article') };
+        const pages = { home: document.getElementById('page-home'), axis: document.getElementById('page-axis'), 'cancel-type': document.getElementById('page-cancel-type'), flow: document.getElementById('page-flow'), grid: document.getElementById('page-grid'), drawer: document.getElementById('page-drawer'), region: document.getElementById('page-region'), policy: document.getElementById('page-policy'), article: document.getElementById('page-article'), lingang: document.getElementById('page-lingang') };
         const overlays = { action: document.getElementById('overlay-action') };
 
         function switchPage(targetId, direction = 'forward') {
@@ -1071,12 +1139,12 @@
         //  9. 经营服务大厅渲染
         // ============================================================
         const gridGroups = [
-            { label: '企业事务', ids: ['g1','g1b','g1c'] },
+            { label: '商事登记', ids: ['g1','g1b','g1c'] },
             { label: '财税金融', ids: ['g3','g3b','g9','g3c'] },
             { label: '人力资源', ids: ['g2','g4','g5','g5b'] },
             { label: '创新与贸易', ids: ['g7','g8','g5c','g5d'] },
             { label: '经营保障', ids: ['g5e','g5f','g5g'] },
-            { label: '政策法规', ids: ['g6'] }
+            { label: '政策法规', ids: ['g6','g6b'] }
         ];
         function renderGrid() {
             const container = document.getElementById('grid-content');
@@ -1103,6 +1171,9 @@
                     if (data.isRegion) {
                         renderRegionMap();
                         switchPage('page-region', 'forward');
+                    } else if (data.isLingang) {
+                        renderLingangPolicies();
+                        switchPage('page-lingang', 'forward');
                     } else {
                         renderDrawer(gridId);
                         switchPage('page-drawer', 'forward');
