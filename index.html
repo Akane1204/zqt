@@ -152,6 +152,14 @@
         #page-drawer .content-area { padding: 20px 16px; background: #F5F0E8;}
         .drawer-group { margin-bottom: 16px; border-radius: 12px; background: #fff; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.02); border-left: 3px solid #CCB486; }
         .d-level-1-header { padding: 18px 20px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #2C2416; font-size: 16px; }
+        .d-level-1-header:hover { background: #FAF8F4; }
+        .drawer-type-bar { display: flex; align-items: center; gap: 10px; padding: 16px 20px; background: transparent; }
+        .drawer-type-label { font-size: 14px; color: #8A7D6B; font-weight: 500; white-space: nowrap; }
+        .drawer-type-scroll { display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .drawer-type-scroll::-webkit-scrollbar { display: none; }
+        .drawer-type-tab { flex-shrink: 0; padding: 8px 18px; border-radius: 25px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s; background: #fff; color: #5A4D3A; border: 1px solid #E5DDD0; white-space: nowrap; }
+        .drawer-type-tab.active { background: linear-gradient(135deg, #CCB486, #B8A070); color: #fff; border-color: transparent; box-shadow: 0 4px 12px rgba(204,180,134,0.35); }
+        .drawer-type-tab:active { transform: scale(0.96); }
         .d-level-1-icon { font-size: 12px; color: #CCB486; transition: transform 0.3s; }
         .drawer-group.open .d-level-1-icon { transform: rotate(90deg); }
         .d-level-1-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #FAF8F4; }
@@ -620,17 +628,110 @@
 
         // 经营服务大厅数据
         const gridData = [
-            { id: 'g1', name: '公司变更登记', group: '商事登记', icon: '<svg viewBox="0 0 24 24" fill="#2E86AB"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h5v7h7v9H6z"/><path d="M8 12h8v1.5H8zm0 3h8v1.5H8zm0 3h5v1.5H8z"/></svg>', drawers: [
-                { category: '变更登记事项', items: [
-                    { title: 'Q: 变更公司名称需要哪些材料？', content: '<p>A: 向登记机关提出申请，需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 修改后的公司章程或章程修正案</p><p>3. 修改公司章程的决议或决定</p><p>4. 经办人身份证明复印件</p>' },
-                    { title: 'Q: 变更经营范围有什么要求？', content: '<p>A: 应按国家市场监管总局公布的经营项目分类标准登记。涉及前置许可的项目，须先取得批准文件或许可证件。</p>' },
-                    { title: 'Q: 变更法定代表人需要什么材料？', content: '<p>A: 需提交由新任法定代表人签署的申请书、新任法定代表人身份证明、任免职情况材料及修改后的章程。</p>' }
+            { id: 'g1', name: '公司变更登记', group: '商事登记', icon: '<svg viewBox="0 0 24 24" fill="#2E86AB"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h5v7h7v9H6z"/><path d="M8 12h8v1.5H8zm0 3h8v1.5H8zm0 3h5v1.5H8z"/></svg>', drawerTypes: ['公司', '分公司', '合伙企业', '个人独资企业'], drawersMap: {
+                '公司': [
+                { category: '基本信息变更', items: [
+                    { title: 'Q: 变更公司名称需要哪些材料？', content: '<p>A: 向登记机关提出申请，经营范围涉及前置许可且需变更名称的，应当先办理公司名称自主申报。需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 修改后的公司章程或章程修正案</p><p>3. 修改公司章程的决议或决定</p><p>4. 经办人身份证明复印件</p>' },
+                    { title: 'Q: 变更公司住所需要什么材料？', content: '<p>A: 需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 变更后住所使用相关文件</p><p>3. 修改后的公司章程或章程修正案</p><p>4. 修改公司章程的决议或决定</p><p><strong>注：</strong>跨登记机关辖区变更住所的，应在迁入新住所前向迁入地登记机关申请变更登记。</p>' },
+                    { title: 'Q: 变更经营范围有什么要求？', content: '<p>A: 应按国家市场监管总局公布的经营项目分类标准登记。需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 修改后的公司章程或章程修正案</p><p>3. 修改公司章程的决议或决定</p><p><strong>注：</strong>经营范围中有法律、行政法规和国务院决定规定在登记前依法须经批准的项目的，提交有关批准文件或许可证件的复印件。</p>' },
+                    { title: 'Q: 变更法定代表人需要什么材料？', content: '<p>A: 需提交：</p><p>1. 《公司登记（备案）申请书》（由新任法定代表人签署）</p><p>2. 新任法定代表人身份证明复印件</p><p>3. 载明法定代表人任免职情况的相关材料</p><p>4. 修改后的公司章程或章程修正案</p>' },
+                    { title: 'Q: 法定代表人更改姓名怎么处理？', content: '<p>A: 提交本人更改姓名后的身份证明复印件及公安部门出具的证明。更改姓名后身份证号码与更改前一致的，无需提交公安部门证明。</p><p><strong>注：</strong>涉及外籍人员的，证明文件应当经所在国家公证机关公证并经中国驻该国使（领）馆认证。</p>' }
                 ]},
                 { category: '资本变更事项', items: [
-                    { title: 'Q: 增加注册资本如何办理？', content: '<p>A: 有限责任公司提交申请书、股东名册、修改后的章程及增资决议。股份有限公司公开发行新股需国务院证券监管机构核准。</p>' },
-                    { title: 'Q: 减少注册资本有什么限制？', content: '<p>A: 须自公告之日起45日后方可申请变更登记。需提交减资公告、股东会决议等材料。</p>' }
+                    { title: 'Q: 增加注册资本如何办理？', content: '<p>A: <strong>有限责任公司：</strong>提交公司股东名册。现有股东追加出资的，应逐笔明确认缴出资额、出资方式和缴付起止日期，并在章程中载明。股东不按实缴出资比例认缴新增出资的，还应提交全体股东书面同意的决定文件。</p><p><strong>股份有限公司：</strong>以公开发行新股方式增资的，提交国务院证券监督管理机构的核准文件。</p>' },
+                    { title: 'Q: 减少注册资本有什么限制？', content: '<p>A: 须自公告之日起45日后方可申请变更登记。需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 公司股东名册</p><p>3. 修改后的公司章程或章程修正案</p><p>4. 减少注册资本的决议或决定</p><p>5. 减少注册资本公告（通过国家企业信用信息公示系统发布的无需提交材料）</p><p><strong>注：</strong>因弥补亏损减少注册资本的，不受45日限制。</p>' },
+                    { title: 'Q: 股东失权导致的减资怎么处理？', content: '<p>A: 因股东失权相应减少注册资本的，还应当提交公司发出的书面失权通知。关于减少注册资本的股东会决议，除失权股权外，由代表剩余三分之二以上表决权的股东通过。公司章程另有规定的，从其规定。</p>' },
+                    { title: 'Q: 因继承人放弃继承导致的减资需要什么材料？', content: '<p>A: 还应当提交继承人放弃继承的声明材料，或生效的法律文书（包括但不限于人民法院生效判决、裁定，民事调解书或经人民法院确认的人民调解协议书）等证明材料。</p>' }
+                ]},
+                { category: '股东变更事项', items: [
+                    { title: 'Q: 有限责任公司变更股东需要什么材料？', content: '<p>A: 需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 载明变更后股东情况的股东名册</p><p>3. 新登记股东的主体资格文件或自然人身份证明复印件</p><p>4. 修改后的公司章程或章程修正案</p><p><strong>注：</strong>仅办理股东变更登记，修改章程中有关股东及其出资额的，无需提交股东会表决材料。</p>' },
+                    { title: 'Q: 因继承取得股权怎么办理变更？', content: '<p>A: 因继承、受遗赠取得股权办理股东登记的，还应当提交公证机构出具的能够说明财产继承、受遗赠情况的公证文书，或生效的法律文书（包括人民法院生效判决、裁定，民事调解书等）。公司章程对股权继承另有规定的，从其规定。</p>' },
+                    { title: 'Q: 法院判决划转股权如何办理？', content: '<p>A: 人民法院依法判决、裁定划转股权或确认股权权属的，还应当提交人民法院的生效判决书或裁定书。</p><p><strong>注：</strong>人民法院要求协助执行办理股东变更登记的，执行人员需到被执行人股权所在公司登记的登记机关办理，出示工作证或执行公务证，送达生效法律文书副本或执行裁定书、协助执行通知书等。</p>' },
+                    { title: 'Q: 股东更名需要什么材料？', content: '<p>A: 因股东或发起人自身更名需要变更登记的，提交名称或姓名变更证明，以及更名后新的主体资格文件或自然人身份证明复印件。其中：</p><p>• 非自然人股东更改名称，证照号码与更改前一致的，无需提交变更证明</p><p>• 自然人股东更改姓名后，身份证号码与更改前一致的，无需提交公安部门证明</p><p>• 外国投资者更改名称或姓名的，证明文件应当经所在国家公证机关公证并经中国驻该国使（领）馆认证</p>' },
+                    { title: 'Q: 股东失权后股权如何处理？', content: '<p>A: 因股东失权，自失权通知发出之日起六个月内丧失的股权依法转让的，或未转让而由其他股东按出资比例足额缴纳相应出资的，还应当提交公司发出的失权通知。</p>' }
+                ]},
+                { category: '公司类型变更', items: [
+                    { title: 'Q: 有限责任公司可以变更为股份有限公司吗？', content: '<p>A: 可以。有限责任公司变更为股份有限公司，或股份有限公司变更为有限责任公司的，应当符合《公司法》规定，按照变更后的公司类型设立登记条件提交相关材料。</p>' }
+                ]},
+                { category: '公司备案事项', items: [
+                    { title: 'Q: 公司章程备案需要什么材料？', content: '<p>A: 需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 修改后的公司章程或章程修正案（由法定代表人签名确认）</p><p>3. 修改公司章程的决议或决定</p><p><strong>注：</strong>有限责任公司修改章程增加关于增资时股东不按实缴出资比例优先认缴出资相关条款的，应提交全体股东签署的股东会决议。</p>' },
+                    { title: 'Q: 董事、监事、高级管理人员变更怎么备案？', content: '<p>A: 提交相关董事、监事、高级管理人员的任职文件和自然人身份证明复印件。前述人员任职情况能够经实名登记确认的，可免予提交任职文件。涉及公司章程修改的，还应当提交修改后的章程及决议或决定。</p>' },
+                    { title: 'Q: 股东认缴出资数额变更需要备案吗？', content: '<p>A: 需要。提交修改后的公司章程或章程修正案、修改公司章程的决议或决定，以及股东名册。注册资本未发生变化，仅股东认缴的出资数额、出资方式等发生变化的，提交修改后的章程及股东名册即可，无需提交股东会表决文件。</p>' },
+                    { title: 'Q: 登记联络员备案需要什么材料？', content: '<p>A: 提交登记联络员的自然人身份证明复印件即可。</p>' }
+                ]},
+                { category: '通用要求', items: [
+                    { title: 'Q: 变更登记的决议或决定有什么要求？', content: '<p>A: <strong>有限责任公司：</strong>提交由代表三分之二以上表决权的股东签署的股东会决议，或全体股东书面一致同意的决定文件。只有一个股东的，提交股东签署的书面决定。</p><p><strong>股份有限公司：</strong>提交由会议主持人及出席会议的董事签署的股东会会议记录。只有一个股东的，提交股东签署的书面决定、公司股东名册。</p><p><strong>国有独资公司：</strong>提交国务院、地方人民政府或代表本级人民政府履行出资人职责的机构、部门的批准文件复印件。</p>' },
+                    { title: 'Q: 多个事项同时变更怎么办？', content: '<p>A: 涉及多个登记事项同时变更的，应当一并申请变更登记，按相应的提交材料规范提交材料。</p><p><strong>注：</strong>已领取纸质版营业执照的，需缴回营业执照正、副本。</p>' },
+                    { title: 'Q: 申请变更登记需要提交哪些通用材料？', content: '<p>A: 所有变更登记均需提交：</p><p>1. 《公司登记（备案）申请书》</p><p>2. 经办人的自然人身份证明复印件</p><p>3. 法律、行政法规和国务院决定规定必须报经批准的，提交有关批准文件或许可证件的复印件</p>' }
                 ]}
-            ]},
+                ],
+                '分公司': [
+                { category: '基本信息变更', items: [
+                    { title: 'Q: 分公司变更名称需要哪些材料？', content: '<p>A: 向登记机关提出申请，经营范围涉及前置许可且需变更名称的，应当先办理名称自主申报。因隶属的公司名称变更而申请变更分公司名称的，提交隶属的公司变更后的营业执照复印件。</p>' },
+                    { title: 'Q: 分公司变更经营场所需要什么材料？', content: '<p>A: 提交变更后经营场所的使用相关文件即可。</p>' },
+                    { title: 'Q: 分公司变更经营范围有什么要求？', content: '<p>A: 应按国家市场监管总局公布的经营项目分类标准登记。经营范围中有法律、行政法规和国务院决定规定在登记前依法须经批准的项目的，提交有关批准文件或许可证件的复印件。</p>' },
+                    { title: 'Q: 分公司变更负责人需要什么材料？', content: '<p>A: 提交分公司负责人的任免职信息、自然人身份证明复印件。负责人任免职信息由分公司隶属公司的法定代表人在《分支机构登记（备案）申请书》中确认。</p>' },
+                    { title: 'Q: 分公司负责人更改姓名怎么处理？', content: '<p>A: 提交本人更改姓名后的身份证明复印件及公安部门出具的证明。更改姓名后身份证号码与更改前一致的，无需提交公安部门证明。</p>' },
+                    { title: 'Q: 分公司变更企业类型需要什么材料？', content: '<p>A: 提交隶属的公司变更后的营业执照复印件即可。</p>' },
+                    { title: 'Q: 因公司合并（分立）导致分公司归属变更怎么办？', content: '<p>A: 需提交：</p><p>1. 载明合并（分立）导致公司解散的注销证明、新设或存续公司的设立或变更证明（或国家企业信用信息公示系统相关公司信息页面截图）</p><p>2. 因合并（分立）而新设或存续公司的营业执照复印件</p>' }
+                ]},
+                { category: '备案事项', items: [
+                    { title: 'Q: 分公司登记联络员备案需要什么材料？', content: '<p>A: 提交登记联络员的自然人身份证明复印件即可。</p>' }
+                ]},
+                { category: '通用要求', items: [
+                    { title: 'Q: 分公司变更登记需要提交哪些通用材料？', content: '<p>A: 所有变更登记均需提交：</p><p>1. 《分支机构登记（备案）申请书》</p><p>2. 经办人的自然人身份证明复印件</p><p>3. 法律、行政法规和国务院决定规定必须报经批准的，提交有关批准文件或许可证件的复印件</p><p><strong>注：</strong>已领取纸质版营业执照的，需缴回营业执照正、副本。</p>' }
+                ]}
+                ],
+                '合伙企业': [
+                { category: '基本信息变更', items: [
+                    { title: 'Q: 合伙企业变更名称需要哪些材料？', content: '<p>A: 向登记机关提出申请，经营范围涉及前置许可且需变更名称的，应当先办理企业名称自主申报。</p>' },
+                    { title: 'Q: 合伙企业变更主要经营场所需要什么材料？', content: '<p>A: 提交变更后主要经营场所使用相关文件即可。</p>' },
+                    { title: 'Q: 合伙企业变更经营范围有什么要求？', content: '<p>A: 应按国家市场监管总局公布的经营项目分类标准登记。经营范围中有法律、行政法规和国务院决定规定在登记前依法须经批准的项目的，提交有关批准文件或许可证件的复印件。</p>' },
+                    { title: 'Q: 合伙人住所、承担责任方式变更需要什么材料？', content: '<p>A: 提交载明合伙人住所信息的《全体合伙人信息》即可。</p>' },
+                    { title: 'Q: 变更执行事务合伙人需要什么材料？', content: '<p>A: 提交合伙协议或全体合伙人决定书，以及新任执行事务合伙人主体资格文件或自然人身份证明复印件。《合伙企业登记（备案）申请书》由新任执行事务合伙人签署。</p><p><strong>注：</strong>变更法人、其他组织委派的执行合伙事务的代表，提交新任委派代表的身份证明复印件和委派书。</p>' }
+                ]},
+                { category: '合伙人变更事项', items: [
+                    { title: 'Q: 合伙人更名需要什么材料？', content: '<p>A: 提交名称或姓名变更证明，以及更名后新的主体资格文件或自然人身份证明复印件。其中：</p><p>• 非自然人更改名称，证照号码与更改前一致的，无需提交变更证明</p><p>• 自然人更改姓名后，身份证号码与更改前一致的，无需提交公安部门证明</p><p>• 外国投资者更改名称或姓名的，证明文件应当经所在国家公证机关公证并经中国驻该国使（领）馆认证</p>' },
+                    { title: 'Q: 变更出资额需要什么材料？', content: '<p>A: 提交修改后或补充的合伙协议（由全体合伙人或合伙协议约定的人员签署确认），以及《全体合伙人出资情况表》。</p>' },
+                    { title: 'Q: 合伙人退伙需要什么材料？', content: '<p>A: 提交载明退伙事由的变更决定书，以及《全体合伙人出资情况表》。合伙协议对合伙份额继承另有规定的，从其规定。</p>' },
+                    { title: 'Q: 新合伙人入伙需要什么材料？', content: '<p>A: 提交新合伙人的主体资格文件或自然人身份证明复印件、入伙协议，以及《全体合伙人出资情况表》。外资合伙企业还应当提交外商投资企业法律文件送达授权委托信息。</p>' },
+                    { title: 'Q: 因继承取得合伙份额怎么处理？', content: '<p>A: 按照合伙协议的约定或经全体合伙人一致同意取得合伙人资格入伙的，提交公证机构出具的能够说明财产继承情况的公证文书，或生效的法律文书等证明材料。合伙协议对合伙份额继承另有规定的，从其规定。</p>' }
+                ]},
+                { category: '企业类型变更', items: [
+                    { title: 'Q: 合伙企业可以变更企业类型吗？', content: '<p>A: 可以。合伙企业变更企业类型的，应当同时办理企业名称变更。涉及其他登记事项变更，应当同时申请变更登记。其中由普通合伙企业变更为特殊的普通合伙企业，法律、行政法规规定需要提交合伙人的职业资格证明的，应当提交相应材料。</p>' }
+                ]},
+                { category: '备案事项', items: [
+                    { title: 'Q: 合伙协议备案需要什么材料？', content: '<p>A: 提交修改后或补充的合伙协议（由全体合伙人或合伙协议约定的人员签署确认），以及全体合伙人或合伙协议约定的人员签署的变更决定书。</p>' },
+                    { title: 'Q: 合伙人出资数额备案需要什么材料？', content: '<p>A: 提交修改后或补充的合伙协议、变更决定书，以及《全体合伙人出资情况表》。</p>' },
+                    { title: 'Q: 登记联络员备案需要什么材料？', content: '<p>A: 提交登记联络员的自然人身份证明复印件即可。</p>' }
+                ]},
+                { category: '通用要求', items: [
+                    { title: 'Q: 变更登记需要提交哪些通用材料？', content: '<p>A: 所有变更登记均需提交：</p><p>1. 《合伙企业登记（备案）申请书》</p><p>2. 变更登记事项涉及修改合伙协议的，提交修改后或补充的合伙协议，以及变更决定书</p><p>3. 经办人的自然人身份证明复印件</p><p>4. 法律、行政法规和国务院决定规定必须报经批准的，提交有关批准文件或许可证件的复印件</p><p><strong>注：</strong>涉及多个登记事项同时变更的，应当一并申请变更登记。已领取纸质版营业执照的，需缴回营业执照正、副本。</p>' }
+                ]}
+                ],
+                '个人独资企业': [
+                { category: '基本信息变更', items: [
+                    { title: 'Q: 个人独资企业变更名称需要哪些材料？', content: '<p>A: 向登记机关提出申请，经营范围涉及前置许可且需变更名称的，应当先办理企业名称自主申报。</p>' },
+                    { title: 'Q: 个人独资企业变更住所需要什么材料？', content: '<p>A: 提交变更后住所使用相关文件即可。</p>' },
+                    { title: 'Q: 个人独资企业变更经营范围有什么要求？', content: '<p>A: 应按国家市场监管总局公布的经营项目分类标准登记。经营范围中有法律、行政法规和国务院决定规定在登记前依法须经批准的项目的，提交有关批准文件或许可证件的复印件。</p>' },
+                    { title: 'Q: 变更出资额需要什么材料？', content: '<p>A: 向登记机关提出申请即可。</p>' }
+                ]},
+                { category: '投资人变更事项', items: [
+                    { title: 'Q: 变更投资人需要什么材料？', content: '<p>A: 提交转让协议书，以及变更后投资人自然人身份证明复印件。</p>' },
+                    { title: 'Q: 因继承变更投资人怎么处理？', content: '<p>A: 因继承、受遗赠变更投资人的，还应当提交公证机构出具的能够说明财产继承、受遗赠情况的公证文书，或生效的法律文书（包括人民法院生效判决、裁定，民事调解书等）等证明材料。</p>' },
+                    { title: 'Q: 投资人更改姓名或居所需要什么材料？', content: '<p>A: 提交本人更名后的身份证明复印件及公安部门出具的证明（更改姓名后身份证号码与更改前一致的，无需提交公安部门证明），或变更后居所的使用相关文件。</p>' }
+                ]},
+                { category: '企业转型', items: [
+                    { title: 'Q: 个人独资企业可以转型为公司吗？', content: '<p>A: 可以。个人独资企业转型变更登记为公司、合伙企业的，提交清税证明材料（登记机关和税务部门已共享清税信息的，无需提交纸质清税证明材料），以及承诺书，并按照转型后的企业类型提交对应的设立登记材料。</p>' }
+                ]},
+                { category: '备案事项', items: [
+                    { title: 'Q: 登记联络员备案需要什么材料？', content: '<p>A: 提交登记联络员的自然人身份证明复印件即可。</p>' }
+                ]},
+                { category: '通用要求', items: [
+                    { title: 'Q: 变更登记需要提交哪些通用材料？', content: '<p>A: 所有变更登记均需提交：</p><p>1. 《个人独资企业登记（备案）申请书》</p><p>2. 经办人的自然人身份证明复印件</p><p>3. 法律、行政法规和国务院决定规定必须报经批准的，提交有关批准文件或许可证件的复印件</p><p><strong>注：</strong>涉及多个登记事项同时变更的，应当一并申请变更登记。已领取纸质版营业执照的，需缴回营业执照正、副本。</p>' }
+                ]}
+                ]
+            }},
             { id: 'g1b', name: '分支机构管理', group: '商事登记', icon: '<svg viewBox="0 0 24 24" fill="#5A8A6A"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>', drawers: [
                 { category: '分公司', items: [
                     { title: 'Q: 分公司和子公司有什么区别？', content: '<p>A: 分公司不具有法人资格，民事责任由总公司承担；子公司具有独立法人资格，独立承担民事责任。分公司设立手续更简便，但不能独立享受税收优惠。</p>' },
@@ -1302,10 +1403,37 @@
             const data = gridData.find(g => g.id === gridId);
             document.getElementById('drawer-title').innerText = data.name + ' 服务库';
             const container = document.getElementById('drawer-content');
-            if (!data.drawers || data.drawers.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#8A7D6B; padding: 40px;">暂无政策数据</p>'; return;
+
+            if (data.drawerTypes && data.drawersMap) {
+                let html = '<div class="drawer-type-bar"><span class="drawer-type-label">类型：</span><div class="drawer-type-scroll">';
+                data.drawerTypes.forEach((type, i) => {
+                    html += `<div class="drawer-type-tab ${i === 0 ? 'active' : ''}" data-type="${type}">${type}</div>`;
+                });
+                html += '</div></div><div id="drawer-body"></div>';
+                container.innerHTML = html;
+
+                renderDrawerContent(data.drawersMap[data.drawerTypes[0]]);
+
+                const scrollContainer = container.querySelector('.drawer-type-scroll');
+                container.querySelectorAll('.drawer-type-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        container.querySelectorAll('.drawer-type-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        renderDrawerContent(data.drawersMap[tab.getAttribute('data-type')]);
+                    });
+                });
+            } else if (!data.drawers || data.drawers.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#8A7D6B; padding: 40px;">暂无政策数据</p>';
+            } else {
+                renderDrawerContent(data.drawers);
             }
-            container.innerHTML = data.drawers.map(group => `
+        }
+
+        function renderDrawerContent(drawers) {
+            const body = document.getElementById('drawer-body');
+            if (!body) return;
+            body.innerHTML = drawers.map(group => `
                 <div class="drawer-group">
                     <div class="d-level-1-header"><span>${group.category}</span><span class="d-level-1-icon">▶</span></div>
                     <div class="d-level-1-body">
@@ -1318,12 +1446,12 @@
                     </div>
                 </div>
             `).join('');
-            container.querySelectorAll('.drawer-group').forEach(group => {
+            body.querySelectorAll('.drawer-group').forEach(group => {
                 group.querySelector('.d-level-1-header').addEventListener('click', () => {
                     group.classList.toggle('open');
                 });
             });
-            container.querySelectorAll('.d-level-2-item').forEach(item => {
+            body.querySelectorAll('.d-level-2-item').forEach(item => {
                 item.querySelector('.d-level-2-header').addEventListener('click', () => {
                     item.classList.toggle('open');
                 });
