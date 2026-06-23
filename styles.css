@@ -31,6 +31,7 @@
         .main-title { font-size: 30px; font-weight: 700; color: #CCB486; margin-bottom: 8px; letter-spacing: 1px; }
         .sub-title { font-size: 15px; color: #8A7D6B; margin-bottom: 50px; }
         .btn-group { display: flex; flex-direction: column; gap: 16px; }
+        .btn-icon { display: none; }
         .home-btn { background-color: #fff; color: #2C2416; border: 1px solid #E5DDD0; padding: 35px 24px; font-size: 18px; border-radius: 12px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #CCB486; }
         .home-btn:active { transform: scale(0.98); background-color: #F5F0E8; }
         .home-btn::after { content: '›'; font-size: 20px; color: #8B1A1A; margin-top: -2px;}
@@ -263,15 +264,31 @@
     .home-content { max-width: 640px; transform: none; }
     .main-title { font-size: 40px; letter-spacing: 2px; }
     .sub-title { font-size: 17px; margin-bottom: 64px; }
-    .btn-group { flex-direction: column; gap: 24px; }
+    .btn-group { flex-direction: row; gap: 20px; }
+    .btn-icon { display: block; width: 28px; height: 28px; flex-shrink: 0; }
     .home-btn {
-        padding: 40px 48px; font-size: 18px; border-radius: 16px;
-        border-left: 5px solid #CCB486;
+        flex: 1;
+        padding: 32px 24px; font-size: 16px; border-radius: 16px;
+        border-left: none; border: 1px solid #E5DDD0;
         box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+        flex-direction: column; gap: 16px; text-align: center;
+        justify-content: center;
+    }
+    .home-btn.primary {
+        background: linear-gradient(135deg, #CCB486, #B8A070);
+        color: #fff; border-color: transparent;
+        box-shadow: 0 8px 24px rgba(204,180,134,0.35);
+    }
+    .home-btn.primary .btn-icon {
+        stroke: #fff;
+    }
+    .btn-text {
+        font-size: 18px; font-weight: 600;
     }
     .home-btn:hover { background-color: #FAF8F4; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .home-btn.primary:hover { background: linear-gradient(135deg, #B8A070, #A89060); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(204,180,134,0.45); }
     .home-btn:active { transform: scale(0.98); }
-    .home-btn::after { font-size: 24px; }
+    .home-btn::after { display: none; }
 
     /* --- 横轴导航 --- */
     #page-axis .content-area { padding: 40px 0; height: calc(100% - 80px); }
@@ -400,11 +417,11 @@
    大屏 PC 适配 (>= 1200px)
    ============================================================ */
 @media (min-width: 1200px) {
-    .home-content { max-width: 560px; }
+    .home-content { max-width: 720px; }
     .main-title { font-size: 40px; }
     .sub-title { font-size: 17px; margin-bottom: 64px; }
-    .home-btn { padding: 36px 32px; font-size: 17px; }
-    .home-btn::after { font-size: 24px; }
+    .home-btn { padding: 36px 24px; font-size: 16px; }
+    .home-btn .btn-text { font-size: 18px; }
 
     .grid-container { max-width: 1000px; }
     .grid-row { grid-template-columns: repeat(5, 1fr); gap: 24px 20px; }
