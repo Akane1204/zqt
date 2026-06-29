@@ -1,0 +1,50 @@
+/* ---- 语言切换滑块 ---- */
+.lang-toggle-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 36px;
+}
+.lang-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    background: rgba(204, 180, 134, 0.18);
+    border: 1.5px solid rgba(204, 180, 134, 0.4);
+    border-radius: 24px;
+    padding: 3px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: border-color 0.3s;
+}
+.lang-toggle:hover {
+    border-color: rgba(204, 180, 134, 0.7);
+}
+.lang-option {
+    position: relative;
+    z-index: 2;
+    padding: 7px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8A7D6B;
+    transition: color 0.3s;
+    line-height: 1;
+}
+.lang-option.active {
+    color: #fff;
+}
+.lang-slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: linear-gradient(135deg, #CCB486, #B8A070);
+    border-radius: 20px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(204, 180, 134, 0.35);
+}
+.lang-toggle.en .lang-slider {
+    transform: translateX(100%);
+}

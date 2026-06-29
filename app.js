@@ -1,16 +1,47 @@
+
+// ====== 语言切换 ======
+function toggleLang() {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+    var tg = document.getElementById('lang-toggle');
+    if (currentLang === 'en') { tg.classList.add('en'); }
+    else { tg.classList.remove('en'); }
+    document.getElementById('lang-zh').classList.toggle('active', currentLang === 'zh');
+    document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+    applyLang();
+}
+
+function applyLang() {
+    document.querySelector('#page-home .main-title').textContent = t('mainTitle');
+    document.querySelector('#page-home .sub-title').textContent = t('subTitle');
+    var bs = document.querySelectorAll('#page-home .home-btn .btn-text');
+    if (bs.length >= 3) { bs[0].textContent = t('btnStartup'); bs[1].textContent = t('btnOperate'); bs[2].textContent = t('btnCancel'); }
+    document.querySelectorAll('.back-btn').forEach(function(b){ b.innerHTML = '\u2039 ' + (currentLang === 'en' ? 'Back' : '\u8fd4\u56de'); });
+    document.querySelector('#overlay-action .sheet-title').textContent = t('actionSheetTitle');
+    document.querySelector('#btn-online .btn-text-col span:first-child').textContent = t('onlineBtn');
+    document.getElementById('btn-offline').querySelector('span:last-child').textContent = t('offlineBtn');
+    document.getElementById('btn-cancel-action').textContent = t('cancelBtn');
+    document.querySelector('.district-sheet-title').textContent = t('districtTitle');
+    document.querySelector('.fab-label').textContent = t('csLabel');
+    // 清缓存，下次进入页面时自动重渲染
+    var gc = document.getElementById('grid-content');
+    if (gc) { gc.dataset.lang = ''; }
+    var rc = document.getElementById('region-grid-content');
+    if (rc) { rc.dataset.lang = ''; rc.dataset.bound = ''; }
+}
+
 function renderLingangPolicies() {
             const container = document.getElementById('lingang-content');
-            container.innerHTML = lingangPolicies.map((p, i) => `
+            container.innerHTML = getLingangPolicies().map((p, i) => `
                 <div class="doc-item doc-item-clickable" data-idx="${i}">
                     <div class="doc-title">${p.q}</div>
-                    <div class="doc-meta"><span class="meta-tag">临港新片区</span></div>
+                    <div class="doc-meta"><span class="meta-tag">${currentLang==="en"?"Lingang Special Area":"临港新片区"}</span></div>
                 </div>
             `).join('');
             container.querySelectorAll('.doc-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const idx = parseInt(item.getAttribute('data-idx'));
-                    const policy = lingangPolicies[idx];
-                    renderArticle(policy.q, policy.a, '临港新片区管委会');
+                    const policy = getLingangPolicies()[idx];
+                    renderArticle(policy.q, policy.a, currentLang==='en'?'Lingang Special Area Administration':'临港新片区管委会');
                     document.querySelector('#page-article .back-btn').setAttribute('data-back', 'lingang');
                     switchPage('page-article', 'forward');
                 });
@@ -72,7 +103,7 @@ function renderLingangPolicies() {
         //  6. 横轴页面渲染
         // ============================================================
         function renderAxis(key) {
-            const data = axisData[key];
+            const data = getAxisData(key);
             currentAxisKey = key;
             document.getElementById('axis-title').innerText = data.title;
             const container = document.getElementById('axis-content');
@@ -84,7 +115,7 @@ function renderLingangPolicies() {
                         <div class="axis-step">${mod.step}</div>
                         <div class="axis-m-title">${mod.title}</div>
                         <div class="axis-m-desc">${mod.desc}</div>
-                        <button class="axis-m-btn">办理指引 &rarr;</button>
+                        <button class="axis-m-btn">${t('guidBtn')}</button>
                     </div>`;
             });
             html += '</div>';
@@ -92,7 +123,7 @@ function renderLingangPolicies() {
             container.querySelectorAll('.axis-module').forEach((el, index) => {
                 el.addEventListener('click', () => {
                     currentAxisModuleData = data.modules[index];
-                    const linkConfig = getOnlineLink(currentAxisKey);
+                    const linkConfig = currentLang === 'en' ? getOnlineLinkEN(currentAxisKey) : getOnlineLink(currentAxisKey);
                     const onlineBtn = document.getElementById('btn-online');
                     onlineBtn.href = linkConfig.url;
                     onlineBtn.querySelector('.sheet-btn-desc').textContent = linkConfig.desc;
@@ -131,12 +162,12 @@ function renderLingangPolicies() {
         //  8. 流程图渲染
         // ============================================================
         function renderFlow(moduleData) {
-            document.getElementById('flow-title').innerText = moduleData.title + ' 流程';
+            document.getElementById('flow-title').innerText = moduleData.title + (currentLang==='en'?' Process':' 流程');
             const container = document.getElementById('flow-content');
 
             if (moduleData.flowTypes && moduleData.flows) {
                 let html = '<div class="flow-type-bar">';
-                html += '<div class="flow-type-label">类型：</div>';
+                html += '<div class="flow-type-label">'+t('typeLabel')+'</div>';
                 html += '<div class="flow-type-scroll">';
                 moduleData.flowTypes.forEach((type, i) => {
                     html += `<div class="flow-type-tab ${i === 0 ? 'active' : ''}" data-type="${type}">${type}</div>`;
@@ -174,8 +205,8 @@ function renderLingangPolicies() {
                             <div class="node-details">
                                 <div class="flow-rich-text">
                                     <div class="district-trigger" onclick="openDistrictSheet()">
-                                        <span class="district-trigger-label">当前选择</span>
-                                        <span class="district-trigger-value"><span id="selected-district-name">浦东新区</span><span class="district-trigger-arrow">▼</span></span>
+                                        <span class="district-trigger-label">${t('selectCurrent')}</span>
+                                        <span class="district-trigger-value"><span id="selected-district-name">${getWindowData("pudong").name}</span><span class="district-trigger-arrow">▼</span></span>
                                     </div>
                                     <div id="window-info-container">
                                         ${renderWindowCard('pudong')}
@@ -204,7 +235,7 @@ function renderLingangPolicies() {
         }
 
         function renderWindowCard(districtKey) {
-            const w = windowData[districtKey];
+            const w = getWindowData(districtKey);
             if (!w) return '';
             return `<div class="window-card">
                 <div class="window-card-header"><svg viewBox="0 0 24 24" stroke="#CCB486"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>${w.office}</div>
@@ -212,8 +243,8 @@ function renderLingangPolicies() {
                 <div class="window-info-row"><span class="window-info-icon"><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>${w.time}</span></div>
                 <div class="window-info-row"><span class="window-info-icon"><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span>${w.phone}</span></div>
                 <div class="window-actions">
-                    <button class="window-action-btn secondary" onclick="copyAddress('${w.address}')">复制地址</button>
-                    <a class="window-action-btn primary" href="tel:${w.phone}">拨打电话</a>
+                    <button class="window-action-btn secondary" onclick="copyAddress('${w.address}')">${t("copyAddress")}</button>
+                    <a class="window-action-btn primary" href="tel:${w.phone}">${t("callPhone")}</a>
                 </div>
             </div>`;
         }
@@ -221,7 +252,7 @@ function renderLingangPolicies() {
         function copyAddress(address) {
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(address).then(() => {
-                    showToast('地址已复制');
+                    showToast(currentLang==='en'?'Address Copied':'地址已复制');
                 });
             }
         }
@@ -239,8 +270,9 @@ function renderLingangPolicies() {
             const overlay = document.getElementById('district-sheet-overlay');
             const body = document.getElementById('district-sheet-body');
             let html = '<div class="district-grid">';
-            Object.keys(windowData).forEach(key => {
-                const d = windowData[key];
+            var _wd = getWindowDataAll();
+            Object.keys(_wd).forEach(key => {
+                const d = _wd[key];
                 html += `<div class="district-grid-item" data-key="${key}" onclick="selectDistrict('${key}')">
                     <span class="district-option-name">${d.name}</span>
                     <span class="district-option-check">✓</span>
@@ -256,7 +288,7 @@ function renderLingangPolicies() {
         }
 
         function selectDistrict(key) {
-            const w = windowData[key];
+            const w = getWindowData(key);
             document.getElementById('selected-district-name').textContent = w.name;
             document.getElementById('window-info-container').innerHTML = renderWindowCard(key);
             closeDistrictSheet();
@@ -271,12 +303,13 @@ function renderLingangPolicies() {
         // ============================================================
         function renderGrid() {
             const container = document.getElementById('grid-content');
-            if (container.innerHTML) return;
+            if (container.innerHTML && container.dataset.lang === currentLang) return;
+            container.dataset.lang = currentLang;
             let html = '';
-            gridGroups.forEach(group => {
+            getGridGroups().forEach(group => {
                 html += `<div class="grid-group-title">${group.label}</div><div class="grid-row">`;
                 group.ids.forEach(id => {
-                    const item = gridData.find(g => g.id === id);
+                    const item = getGridData().find(g => g.id === id);
                     if (!item) return;
                     const bgStyle = `background: rgba(${hexToRgb(item.icon.match(/fill="([^"]+)"/)?.[1] || '#999')},0.12)`;
                     html += `<div class="grid-item" data-id="${item.id}">
@@ -290,7 +323,7 @@ function renderLingangPolicies() {
             container.querySelectorAll('.grid-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const gridId = item.getAttribute('data-id');
-                    const data = gridData.find(g => g.id === gridId);
+                    const data = getGridData().find(g => g.id === gridId);
                     if (data.isRegion) {
                         renderRegionMap();
                         switchPage('page-region', 'forward');
@@ -318,17 +351,18 @@ function renderLingangPolicies() {
         // ============================================================
         function renderRegionMap() {
             const container = document.getElementById('region-grid-content');
-            if (container.dataset.bound === 'true') return;
+            if (container.dataset.bound === 'true' && container.dataset.lang === currentLang) return;
             container.dataset.bound = 'true';
+            container.dataset.lang = currentLang;
 
-            let html = '<div class="region-grid-header"><h3>选择企业所在区</h3><p>查看各区最新助企政策汇编</p></div>';
+            let html = '<div class="region-grid-header"><h3>${t("selectDistrict")}</h3><p>${t("viewPolicy")}</p></div>';
             html += '<div class="region-grid-flat">';
 
-            regionGridData.forEach(r => {
-                const count = regionPolicyData[r.key] ? regionPolicyData[r.key].policies.length : 0;
+            getRegionGridData().forEach(r => {
+                const count = getRegionPolicyData(r.key) ? getRegionPolicyData(r.key).policies.length : 0;
                 html += `<div class="rg-cell" data-region="${r.key}">
                     <div class="rg-name">${r.name}</div>
-                    <div class="rg-count">${count}项政策</div>
+                    <div class="rg-count">${count}${currentLang==="en"?" policies":"项政策"}</div>
                 </div>`;
             });
 
@@ -348,15 +382,15 @@ function renderLingangPolicies() {
         //  11. 区划政策列表渲染
         // ============================================================
         function renderRegionPolicy(regionKey) {
-            const data = regionPolicyData[regionKey];
-            document.getElementById('policy-title').innerText = data.name + ' 政策汇编';
+            const data = getRegionPolicyData(regionKey);
+            document.getElementById('policy-title').innerText = data.name + (currentLang==='en'?' Policy Compilation':' 政策汇编');
             const container = document.getElementById('policy-content');
             container.innerHTML = data.policies.map((item, index) => `
                 <div class="doc-item" data-region="${regionKey}" data-index="${index}">
                     <div class="doc-title">${item.q}</div>
                     <div class="doc-meta">
-                        <span class="doc-tag">官方发布</span>
-                        <span>查阅全文 &gt;</span>
+                        <span class="doc-tag">${currentLang==="en"?"Official Release":"官方发布"}</span>
+                        <span>${currentLang==="en"?"View Full Text >":"查阅全文 >"}</span>
                     </div>
                 </div>
             `).join('');
@@ -364,7 +398,7 @@ function renderLingangPolicies() {
                 item.addEventListener('click', () => {
                     const rKey = item.getAttribute('data-region');
                     const idx = item.getAttribute('data-index');
-                    const policy = regionPolicyData[rKey].policies[idx];
+                    const policy = getRegionPolicyData(rKey).policies[idx];
                     renderArticle(policy.q, policy.a);
                     switchPage('page-article', 'forward');
                 });
@@ -380,8 +414,8 @@ function renderLingangPolicies() {
                 <div class="article-header">
                     <h1 class="article-title">${title}</h1>
                     <div class="article-meta">
-                        <span>发布机构：所在区人民政府</span>
-                        <span>实施日期：长期有效</span>
+                        <span>${t("publisher")}</span>
+                        <span>${t("effectDate")}</span>
                     </div>
                 </div>
                 <div class="article-body">${content}</div>`;
@@ -391,19 +425,19 @@ function renderLingangPolicies() {
         // ============================================================
         //  13. 抽屉库渲染
         // ============================================================
-        const drawerTypeSelectorNames = new Set(['公司变更登记', '分支机构管理']);
+        const drawerTypeSelectorNames = new Set(['公司变更登记','分支机构管理','Company Changes','Branch Management']);
 
         function renderDrawer(gridId) {
-            const data = gridData.find(g => g.id === gridId);
+            const data = getGridData().find(g => g.id === gridId);
             if (!data) return;
-            document.getElementById('drawer-title').innerText = data.name + ' 服务库';
+            document.getElementById('drawer-title').innerText = data.name + (currentLang==='en'?' Service Library':' 服务库');
             const container = document.getElementById('drawer-content');
             const hasDrawerTypeData = data.drawerTypes && data.drawersMap;
             const shouldShowTypeSelector = hasDrawerTypeData && drawerTypeSelectorNames.has(data.name);
 
             // 始终先创建 drawer-body 容器，确保 renderDrawerContent 能找到它
             if (shouldShowTypeSelector) {
-                let html = '<div class="drawer-type-bar"><span class="drawer-type-label">类型：</span><div class="drawer-type-scroll">';
+                let html = '<div class="drawer-type-bar"><span class="drawer-type-label">'+t('typeLabel')+'</span><div class="drawer-type-scroll">';
                 data.drawerTypes.forEach((type, i) => {
                     html += `<div class="drawer-type-tab ${i === 0 ? 'active' : ''}" data-type="${type}">${type}</div>`;
                 });
@@ -429,7 +463,7 @@ function renderLingangPolicies() {
                 if (data.drawers && data.drawers.length > 0) {
                     renderDrawerContent(data.drawers);
                 } else {
-                    document.getElementById('drawer-body').innerHTML = '<p class="no-data-msg">暂无政策数据</p>';
+                    document.getElementById('drawer-body').innerHTML = '<p class="no-data-msg">${t("noDataMsg")}</p>';
                 }
             }
         }

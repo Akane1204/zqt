@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>政企通</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lang-toggle.css">
 </head>
 <body>
 
@@ -14,6 +15,15 @@
             <h1 class="main-title">政企通</h1>
             <p class="sub-title">企业全生命周期服务平台</p>
             
+            <!-- 语言切换滑块 -->
+            <div class="lang-toggle-wrap">
+                <div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
+                    <span class="lang-option lang-zh active" id="lang-zh">中</span>
+                    <span class="lang-option lang-en" id="lang-en">EN</span>
+                    <span class="lang-slider" id="lang-slider"></span>
+                </div>
+            </div>
+
             <div class="btn-group">
                 <button class="home-btn primary" data-type="axis" data-key="startup">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -198,6 +208,7 @@
     </div>
 
     <script src="data.js"></script>
+    <script src="i18n.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
