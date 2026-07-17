@@ -22,6 +22,32 @@ function applyLang() {
     document.getElementById('btn-cancel-action').textContent = t('cancelBtn');
     document.querySelector('.district-sheet-title').textContent = t('districtTitle');
     document.querySelector('.fab-label').textContent = t('csLabel');
+
+    // ---- 注销方式选择页 (cancel-type page) ----
+    document.querySelector('#page-cancel-type .page-title').textContent = t('cancelTypeTitle');
+    document.querySelector('#page-cancel-type .cancel-type-intro').textContent = t('cancelTypeIntro');
+    // 简易注销卡
+    var simpleCard = document.querySelector('#page-cancel-type .cancel-type-card[data-cancel="simple"]');
+    if (simpleCard) {
+        simpleCard.querySelector('.cancel-type-title').innerHTML = t('simpleCancel') + ' <span class="cancel-type-badge green">' + t('badgeRecommended') + '</span>';
+        simpleCard.querySelector('.cancel-type-desc').textContent = t('simpleCancelDesc');
+        var simpleMeta = simpleCard.querySelectorAll('.cancel-type-meta span');
+        if (simpleMeta[0]) simpleMeta[0].lastChild.textContent = t('simpleCancelCycle');
+        if (simpleMeta[1]) simpleMeta[1].lastChild.textContent = t('simpleCancelNoLiquidation');
+    }
+    // 普通注销卡
+    var normalCard = document.querySelector('#page-cancel-type .cancel-type-card[data-cancel="normal"]');
+    if (normalCard) {
+        normalCard.querySelector('.cancel-type-title').innerHTML = t('normalCancel') + ' <span class="cancel-type-badge orange">' + t('badgeStandard') + '</span>';
+        normalCard.querySelector('.cancel-type-desc').textContent = t('normalCancelDesc');
+        var normalMeta = normalCard.querySelectorAll('.cancel-type-meta span');
+        if (normalMeta[0]) normalMeta[0].lastChild.textContent = t('normalCancelCycle');
+        if (normalMeta[1]) normalMeta[1].lastChild.textContent = t('normalCancelNeedLiquidation');
+    }
+    // 流程细则页标题
+    var flowTitleEl = document.getElementById('flow-title');
+    if (flowTitleEl) flowTitleEl.textContent = t('flowTitle');
+
     // 清缓存，下次进入页面时自动重渲染
     var gc = document.getElementById('grid-content');
     if (gc) { gc.dataset.lang = ''; }
