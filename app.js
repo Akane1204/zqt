@@ -47,6 +47,8 @@ function applyLang() {
     // 流程细则页标题
     var flowTitleEl = document.getElementById('flow-title');
     if (flowTitleEl) flowTitleEl.textContent = t('flowTitle');
+    // 经营服务大厅页标题
+    document.querySelector('#page-grid .page-title').textContent = t('gridTitle');
 
     // 清缓存，下次进入页面时自动重渲染
     var gc = document.getElementById('grid-content');
