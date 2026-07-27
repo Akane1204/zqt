@@ -68,7 +68,7 @@
     <!-- ========== 注销方式选择页 ========== -->
     <div id="page-cancel-type" class="page hidden">
         <div class="header">
-            <button class="back-btn" data-back="home">‹ 返回</button>
+            <button class="back-btn" data-back="entity-cancel">‹ 返回</button>
             <div class="page-title">选择注销方式</div>
         </div>
         <div class="content-area content-area-cancel-type">
@@ -98,7 +98,106 @@
         </div>
     </div>
 
-    <!-- ========== 流程细则页 ========== -->
+    <!-- ========== 选择注册类型页 ========== -->
+    <div id="page-entity-startup" class="page hidden">
+        <div class="header">
+            <button class="back-btn" data-back="home">‹ 返回</button>
+            <div class="page-title" data-i18n="entityStartupTitle">选择注册类型</div>
+        </div>
+        <div class="content-area content-area-cancel-type">
+            <p class="cancel-type-intro" data-i18n="entityStartupIntro">根据经营主体类型选择相应的注册流程。公司注册适用于法人企业，个体工商户注册适用于个人经营。</p>
+            <div class="cancel-type-card recommended" data-entity-startup="company">
+                <div class="cancel-type-title">
+                    <span data-i18n="entityCompanyReg">公司注册</span>
+                    <span class="cancel-type-badge green" data-i18n="entityBadgeCorp">法人企业</span>
+                </div>
+                <div class="cancel-type-desc" data-i18n="entityCompanyRegDesc">适用于有限责任公司、股份有限公司等法人企业。具备独立法人资格，股东以出资额为限承担有限责任。</div>
+                <div class="cancel-type-meta">
+                    <span><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="entityCompanyCycle">周期：约3-5个工作日</span></span>
+                    <span><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/></svg><span data-i18n="entityCompanyFea">法人资格</span></span>
+                </div>
+            </div>
+            <div class="cancel-type-card standard" data-entity-startup="individual">
+                <div class="cancel-type-title">
+                    <span data-i18n="entityIndivReg">个体工商户注册</span>
+                    <span class="cancel-type-badge orange" data-i18n="entityBadgeIndiv">个人经营</span>
+                </div>
+                <div class="cancel-type-desc" data-i18n="entityIndivRegDesc">适用于自然人从事工商业经营。设立程序简便，无需注册资本，经营者以个人财产承担无限责任。</div>
+                <div class="cancel-type-meta">
+                    <span><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="entityIndivCycle">周期：约1-3个工作日</span></span>
+                    <span><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/></svg><span data-i18n="entityIndivFea">无需注册资本</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 选择注销类型页 ========== -->
+    <div id="page-entity-cancel" class="page hidden">
+        <div class="header">
+            <button class="back-btn" data-back="home">‹ 返回</button>
+            <div class="page-title" data-i18n="entityCancelTitle">选择注销类型</div>
+        </div>
+        <div class="content-area content-area-cancel-type">
+            <p class="cancel-type-intro" data-i18n="entityCancelIntro">根据经营主体类型选择相应的注销流程。公司注销涉及清算程序，个体工商户注销流程相对简便。</p>
+            <div class="cancel-type-card recommended" data-entity-cancel="company">
+                <div class="cancel-type-title">
+                    <span data-i18n="entityCompanyCancel">公司注销</span>
+                    <span class="cancel-type-badge green" data-i18n="entityBadgeCorp">法人企业</span>
+                </div>
+                <div class="cancel-type-desc" data-i18n="entityCompanyCancelDesc">适用于有限责任公司、股份有限公司等法人企业注销。可选择简易注销或普通注销两种方式。</div>
+                <div class="cancel-type-meta">
+                    <span><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="entityCompanyCancelCycle">周期：1.5-4个月</span></span>
+                    <span><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/></svg><span data-i18n="entityCompanyCancelFea">简易/普通可选</span></span>
+                </div>
+            </div>
+            <div class="cancel-type-card standard" data-entity-cancel="individual">
+                <div class="cancel-type-title">
+                    <span data-i18n="entityIndivCancel">个体工商户注销</span>
+                    <span class="cancel-type-badge orange" data-i18n="entityBadgeIndiv">个人经营</span>
+                </div>
+                <div class="cancel-type-desc" data-i18n="entityIndivCancelDesc">适用于个体工商户注销。无需公示，流程简便，税务部门10日内无异议可直接办理注销。</div>
+                <div class="cancel-type-meta">
+                    <span><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="entityIndivCancelCycle">周期：约1-2周</span></span>
+                    <span><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/></svg><span data-i18n="entityIndivCancelFea">无需公示</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 个体工商户注销方式选择页 ========== -->
+    <div id="page-individual-cancel-type" class="page hidden">
+        <div class="header">
+            <button class="back-btn" data-back="entity-cancel">‹ 返回</button>
+            <div class="page-title" data-i18n="indivCancelTypeTitle">选择注销方式</div>
+        </div>
+        <div class="content-area content-area-cancel-type">
+            <p class="cancel-type-intro" data-i18n="indivCancelTypeIntro">根据个体工商户实际情况选择合适的注销方式。未发生债权债务的可优先选择简易注销，无需公示，流程更快捷。</p>
+            <div class="cancel-type-card recommended" data-indiv-cancel="simple">
+                <div class="cancel-type-title">
+                    <span data-i18n="indivSimpleCancel">简易注销</span>
+                    <span class="cancel-type-badge green" data-i18n="badgeRecommended">推荐</span>
+                </div>
+                <div class="cancel-type-desc" data-i18n="indivSimpleCancelDesc">适用于未发生债权债务或已清偿完结的个体工商户。无需通过公示系统公示，登记机关推送信息至税务部门，10日内无异议即可办理。</div>
+                <div class="cancel-type-meta">
+                    <span><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="indivSimpleCancelCycle">周期：约10个工作日</span></span>
+                    <span><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/></svg><span data-i18n="indivSimpleCancelFea">无需公示</span></span>
+                </div>
+            </div>
+            <div class="cancel-type-card standard" data-indiv-cancel="normal">
+                <div class="cancel-type-title">
+                    <span data-i18n="indivNormalCancel">普通注销</span>
+                    <span class="cancel-type-badge orange" data-i18n="badgeStandard">标准</span>
+                </div>
+                <div class="cancel-type-desc" data-i18n="indivNormalCancelDesc">适用于所有个体工商户。需先到税务机关办理清税取得清税证明，再向登记机关申请注销登记，缴回营业执照。</div>
+                <div class="cancel-type-meta">
+                    <span><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="indivNormalCancelCycle">周期：约2-4周</span></span>
+                    <span><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/></svg><span data-i18n="indivNormalCancelFea">需清税证明</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 流程细则页 ========== --> -->
     <div id="page-flow" class="page hidden">
         <div class="header">
             <button class="back-btn" data-back="axis">‹ 返回</button>

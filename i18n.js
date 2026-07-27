@@ -56,7 +56,42 @@ const i18nUI = {
         serviceLibrary: '服务库',
         policyCompilation: '政策汇编',
         guidBtn: '办理指引 →',
-        MonFri: '周一至周五 9:00-11:30, 13:30-16:30'
+        MonFri: '周一至周五 9:00-11:30, 13:30-16:30',
+        // ---- 选择注册类型页 ----
+        entityStartupTitle: '选择注册类型',
+        entityStartupIntro: '根据经营主体类型选择相应的注册流程。公司注册适用于法人企业，个体工商户注册适用于个人经营。',
+        entityCompanyReg: '公司注册',
+        entityCompanyRegDesc: '适用于有限责任公司、股份有限公司等法人企业。具备独立法人资格，股东以出资额为限承担有限责任。',
+        entityCompanyCycle: '周期：约3-5个工作日',
+        entityCompanyFea: '法人资格',
+        entityIndivReg: '个体工商户注册',
+        entityIndivRegDesc: '适用于自然人从事工商业经营。设立程序简便，无需注册资本，经营者以个人财产承担无限责任。',
+        entityIndivCycle: '周期：约1-3个工作日',
+        entityIndivFea: '无需注册资本',
+        entityBadgeCorp: '法人企业',
+        entityBadgeIndiv: '个人经营',
+        // ---- 选择注销类型页 ----
+        entityCancelTitle: '选择注销类型',
+        entityCancelIntro: '根据经营主体类型选择相应的注销流程。公司注销涉及清算程序，个体工商户注销流程相对简便。',
+        entityCompanyCancel: '公司注销',
+        entityCompanyCancelDesc: '适用于有限责任公司、股份有限公司等法人企业注销。可选择简易注销或普通注销两种方式。',
+        entityCompanyCancelCycle: '周期：1.5-4个月',
+        entityCompanyCancelFea: '简易/普通可选',
+        entityIndivCancel: '个体工商户注销',
+        entityIndivCancelDesc: '适用于个体工商户注销。无需公示，流程简便，税务部门10日内无异议可直接办理注销。',
+        entityIndivCancelCycle: '周期：约1-2周',
+        entityIndivCancelFea: '无需公示',
+        // ---- 个体工商户注销方式选择页 ----
+        indivCancelTypeTitle: '选择注销方式',
+        indivCancelTypeIntro: '根据个体工商户实际情况选择合适的注销方式。未发生债权债务的可优先选择简易注销，无需公示，流程更快捷。',
+        indivSimpleCancel: '简易注销',
+        indivSimpleCancelDesc: '适用于未发生债权债务或已清偿完结的个体工商户。无需通过公示系统公示，登记机关推送信息至税务部门，10日内无异议即可办理。',
+        indivSimpleCancelCycle: '周期：约10个工作日',
+        indivSimpleCancelFea: '无需公示',
+        indivNormalCancel: '普通注销',
+        indivNormalCancelDesc: '适用于所有个体工商户。需先到税务机关办理清税取得清税证明，再向登记机关申请注销登记，缴回营业执照。',
+        indivNormalCancelCycle: '周期：约2-4周',
+        indivNormalCancelFea: '需清税证明'
     },
     en: {
         mainTitle: 'BizGov Connect',
@@ -109,7 +144,42 @@ const i18nUI = {
         serviceLibrary: ' Service Library',
         policyCompilation: ' Policy Compilation',
         guidBtn: 'Processing Guide →',
-        MonFri: 'Mon-Fri 9:00-11:30, 13:30-16:30'
+        MonFri: 'Mon-Fri 9:00-11:30, 13:30-16:30',
+        // ---- Entity Type Selection Pages ----
+        entityStartupTitle: 'Select Registration Type',
+        entityStartupIntro: 'Choose the appropriate registration process based on your business entity type. Company registration applies to corporate enterprises; individual business registration applies to sole proprietors.',
+        entityCompanyReg: 'Company Registration',
+        entityCompanyRegDesc: 'Applicable to corporate enterprises such as limited liability companies and joint-stock companies. Enjoy independent legal person status with limited liability based on capital contribution.',
+        entityCompanyCycle: 'Cycle: approx. 3-5 business days',
+        entityCompanyFea: 'Legal Person Status',
+        entityIndivReg: 'Individual Business Registration',
+        entityIndivRegDesc: 'Applicable to natural persons engaged in industrial and commercial operations. Simplified establishment process, no registered capital required; operator bears unlimited liability with personal assets.',
+        entityIndivCycle: 'Cycle: approx. 1-3 business days',
+        entityIndivFea: 'No Registered Capital',
+        entityBadgeCorp: 'Corporate',
+        entityBadgeIndiv: 'Sole Proprietor',
+        // ---- Entity Cancel Type Selection Pages ----
+        entityCancelTitle: 'Select Deregistration Type',
+        entityCancelIntro: 'Choose the appropriate deregistration process based on your business entity type. Company deregistration involves liquidation procedures; individual business deregistration is relatively straightforward.',
+        entityCompanyCancel: 'Company Deregistration',
+        entityCompanyCancelDesc: 'Applicable to deregistration of corporate enterprises such as limited liability companies and joint-stock companies. Choose between simplified or standard deregistration.',
+        entityCompanyCancelCycle: 'Cycle: 1.5-4 months',
+        entityCompanyCancelFea: 'Simple/Standard Options',
+        entityIndivCancel: 'Individual Business Deregistration',
+        entityIndivCancelDesc: 'Applicable to individual business deregistration. No public notice required; streamlined process. If tax authorities raise no objection within 10 days, deregistration is processed directly.',
+        entityIndivCancelCycle: 'Cycle: approx. 1-2 weeks',
+        entityIndivCancelFea: 'No Public Notice',
+        // ---- Individual Business Cancel Type Selection ----
+        indivCancelTypeTitle: 'Select Deregistration Method',
+        indivCancelTypeIntro: 'Choose the appropriate deregistration method based on your individual business situation. Businesses with no outstanding debts may opt for simplified deregistration for a faster process.',
+        indivSimpleCancel: 'Simplified Deregistration',
+        indivSimpleCancelDesc: 'Applicable to individual businesses with no outstanding debts or fully settled obligations. No public notice required; the registration authority forwards information to tax authorities. If no objection within 10 days, deregistration proceeds.',
+        indivSimpleCancelCycle: 'Cycle: approx. 10 business days',
+        indivSimpleCancelFea: 'No Public Notice',
+        indivNormalCancel: 'Standard Deregistration',
+        indivNormalCancelDesc: 'Applicable to all individual businesses. Requires tax clearance certificate from the tax authority, followed by deregistration application to the registration authority and surrender of the business license.',
+        indivNormalCancelCycle: 'Cycle: approx. 2-4 weeks',
+        indivNormalCancelFea: 'Tax Clearance Required'
     }
 };
 
@@ -122,6 +192,9 @@ const officialLinksEN = {
     'startup': { online: 'https://yct.sh.gov.cn/portal_yct/', name: 'Shanghai Enterprise Registration Online — Business Registration' },
     'cancel_simple': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Simplified Deregistration' },
     'cancel_normal': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Standard Deregistration' },
+    'individual_startup': { online: 'https://yct.sh.gov.cn/portal_yct/', name: 'Shanghai Enterprise Registration Online — Individual Business Registration' },
+    'individual_cancel_simple': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Individual Business Simplified Deregistration' },
+    'individual_cancel_normal': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Individual Business Standard Deregistration' },
     'tax': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Tax Services' },
     'social': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Social Insurance' },
     'housing': { online: 'https://zwdt.sh.gov.cn', name: 'Shanghai One-Stop Online — Housing Provident Fund' },
@@ -131,6 +204,7 @@ const officialLinksEN = {
 
 function getOnlineLinkEN(axisKey) {
     if (axisKey === 'startup') return { url: 'https://yct.sh.gov.cn/portal_yct/', desc: 'Jump to "Shanghai Enterprise Registration Online" for business registration' };
+    if (axisKey === 'individual_startup') return { url: 'https://yct.sh.gov.cn/portal_yct/', desc: 'Jump to "Shanghai Enterprise Registration Online" for individual business registration' };
     return { url: 'https://zwdt.sh.gov.cn', desc: 'Jump to Shanghai "One-Stop Online" official platform' };
 }
 
@@ -270,6 +344,52 @@ const axisDataEN = {
         ]},
         { id: 'cn8', step: 'STEP 08', title: 'Seal Cancellation', desc: 'Surrender all company seals at the public security registered seal engraving facility.', flow: [
             { title: 'Processing Steps', content: '<p>Process at a designated seal engraving facility or the original engraving location. Required documents:</p><p>• Original "Deregistration Approval Notice"</p><p>• Copy of the legal representative\'s ID</p><p>• All seals (company seal, financial seal, legal representative seal, contract seal, invoice seal, etc.)</p><p>Upon completion, obtain a "Seal Cancellation Certificate".</p><p><strong>Tip:</strong> Some areas support online appointment for seal cancellation. Call ahead to confirm.</p>' }
+        ]}
+    ]},
+    // ---- Individual Business Registration ----
+    'individual_startup': { title: 'Individual Business Registration Guide', modules: [
+        { id: 'is1', step: 'STEP 01', title: 'Name Registration', desc: 'Individual businesses can register a name or operate without one.', flow: [
+            { title: 'Name Registration (Optional)', content: '<p>Individual businesses are not required to use a business name. If you wish to use one, register via the Shanghai "One-Stop Online" platform:</p><p>• Name format: Shanghai + Trade Name + Industry + Organization Type (e.g., "Shanghai XX Snack Shop")</p><p>• You may also use only a trade name, e.g., "XX Snack Shop"</p><p>• If the business scope involves pre-approval items and a name is required, complete name registration first</p><p>• The system provides automatic name verification with real-time compliance feedback</p>' },
+            { title: 'Get Name Verification Result', content: '<p>The system performs automatic name verification with instant results.</p><p>Once verified, the name can be used for establishment registration.</p><p>If you submit a Name Self-Declaration Commitment Letter, the registration authority will file it.</p>' }
+        ]},
+        { id: 'is2', step: 'STEP 02', title: 'Establishment Registration', desc: 'Formally apply to establish an individual business and obtain a business license.', flow: [
+            { title: 'Prepare Documents', content: '<p>Required documents (strictly per the 2026 Business Entity Registration Document Standards):</p><p>1. Individual Business Registration (Filing) Application Form</p><p>2. Copies of identity certificates for the operator and the person submitting the application (agent)</p><p>　• For family-operated businesses: household register (hukou) or marriage certificate, plus copies of participating family members\' identity certificates</p><p>　• Hong Kong/Macau operators: permanent resident ID, SAR passport, or Mainland-issued residence permit/entry permit copies</p><p>　• Taiwan operators: Mainland-issued Taiwan resident residence permit or Taiwan compatriot travel permit copies</p><p>3. Operator\'s residential address documents: household register or identity certificate copy (if current residence differs, provide proof of current residence)</p><p>4. Business premises usage documents</p><p>　• Online-only platform operators must submit a document from the e-commerce platform confirming use of the platform\'s network address as the business premises</p><p>5. Where laws require pre-approval for establishment, submit copies of approval documents or licenses</p>' },
+            { title: 'Submit Application', content: '<p>Submit via the following methods:</p><p><strong>Online Processing:</strong></p><p>• Log in to Shanghai "One-Stop Online" platform (zwdt.sh.gov.cn) and enter the "Shanghai Enterprise Registration Online" section</p><p>• Apply via fully electronic process, uploading document images/copies</p><p>• After applicant confirmation and submission, electronic files are stored directly; paper materials are not required</p><p><strong>Offline Processing:</strong></p><p>• Submit documents at the Market Supervision Bureau registration window of each district</p><p>• Documents should use A4 white paper; sign with black or blue ink pen</p>' },
+            { title: 'Collect Business License', content: '<p>After approval, you may choose:</p><p>• <strong>Electronic Business License</strong>: Instant download, with the same legal effect as a paper license</p><p>• <strong>Paper License</strong>: Collect at the Market Supervision Bureau window or opt for postal delivery</p><p>Processing time: Typically 1-3 business days with complete documents.</p>' },
+            { title: 'Service Window Inquiry', type: 'window', content: '' }
+        ]},
+        { id: 'is3', step: 'STEP 03', title: 'Tax Registration', desc: 'Complete tax information confirmation, apply for invoices, and establish accounting records.', flow: [
+            { title: 'Tax Information Confirmation', content: '<p>After obtaining the business license, visit the local tax authority to:</p><p>• Complete tax information confirmation (automatically linked on first tax filing)</p><p>• Determine taxpayer type (VAT small-scale taxpayer or general taxpayer)</p><p>• Individual businesses are generally classified as small-scale taxpayers by default</p><p>• Monthly sales under 100,000 RMB are exempt from VAT (small-scale taxpayers)</p>' },
+            { title: 'Invoice Application & Accounting Setup', content: '<p><strong>Invoice Application:</strong></p><p>• Apply online via the Electronic Tax Bureau</p><p>• First-time applicants must visit the tax service hall with business license and operator ID</p><p>• Small-scale taxpayers can issue general invoices independently; apply for agency issuance or self-issuance for special VAT invoices</p><p><strong>Accounting Records:</strong></p><p>• Individual businesses must establish accounting records as required</p><p>• Small-scale operations may apply for fixed-amount periodic taxation</p><p>• Bookkeeping agency services available at approximately 200-500 RMB/month</p>' }
+        ]}
+    ]},
+    // ---- Individual Business Simplified Deregistration ----
+    'individual_cancel_simple': { title: 'Individual Business Simplified Deregistration Guide', modules: [
+        { id: 'ics1', step: 'STEP 01', title: 'Verify Eligibility', desc: 'Confirm eligibility for simplified deregistration: no outstanding debts.', flow: [
+            { title: 'Eligibility Criteria', content: '<p><strong>Conditions for simplified deregistration:</strong></p><p>• The individual business has no outstanding debts, or all debts have been settled</p><p>• All liquidation costs, employee wages, social insurance, legal compensation, and taxes (including late fees and fines) have been settled</p><p><strong>Situations where simplified deregistration does NOT apply:</strong></p><p>• Deregistration requires prior government approval</p><p>• Business license has been revoked, ordered closed, or cancelled</p><p>• Listed in the business anomaly directory</p><p>• Falls under Article 48 of the Implementation Rules of the Market Entity Registration Management Regulations</p>' }
+        ]},
+        { id: 'ics2', step: 'STEP 02', title: 'Prepare & Submit Documents', desc: 'Prepare required documents and submit the simplified deregistration application.', flow: [
+            { title: 'Prepare Documents', content: '<p>Required documents for simplified deregistration (strictly per the 2026 Business Entity Registration Document Standards):</p><p>1. Individual Business Registration (Filing) Application Form</p><p>2. Copy of identity certificate of the person submitting the application (agent)</p><p><strong>Note:</strong> If a paper business license was collected, surrender the original license(s).</p>' },
+            { title: 'Submit Application', content: '<p><strong>Processing Procedure:</strong></p><p>• Submit a simplified deregistration application to the registration authority</p><p>• No public notice via the National Enterprise Credit Information Publicity System is required</p><p>• The registration authority forwards the deregistration application information to the tax and other relevant departments</p><p>• If no objection is raised within 10 days, the registration authority processes the deregistration directly</p><p><strong>Online:</strong> Submit via the Shanghai "One-Stop Online" platform</p><p><strong>Offline:</strong> Submit at the Market Supervision Bureau registration window of each district</p>' }
+        ]},
+        { id: 'ics3', step: 'STEP 03', title: 'Complete Deregistration', desc: 'Collect deregistration certificate and surrender business license.', flow: [
+            { title: 'Collect Deregistration Certificate', content: '<p>After approval:</p><p>• The registration authority issues the "Deregistration Approval Notice"</p><p>• If a paper business license was collected, surrender the original license(s)</p><p>• The individual business entity status is terminated</p><p><strong>Tip:</strong> It is recommended to also close the bank account and cancel any registered seals.</p>' }
+        ]}
+    ]},
+    // ---- Individual Business Standard Deregistration ----
+    'individual_cancel_normal': { title: 'Individual Business Standard Deregistration Guide', modules: [
+        { id: 'icn1', step: 'STEP 01', title: 'Tax Clearance', desc: 'Complete tax clearance at the tax authority and obtain a tax clearance certificate.', flow: [
+            { title: 'Tax Clearance Filing', content: '<p>Process with the local tax authority:</p><p>• Settle all outstanding taxes including VAT and personal income tax</p><p>• Surrender unused invoices and tax control equipment (if applicable)</p><p>• Resolve any unfiled returns and late payment fees</p>' },
+            { title: 'Obtain Tax Clearance Certificate', content: '<p>After all tax matters are settled:</p><p>• The tax authority issues a Tax Clearance Certificate</p><p>• This certificate is a required document for business deregistration</p><p>• If the registration authority and tax authority have shared tax clearance information, a paper certificate is not required</p><p>• Processing time: approximately 3-15 business days (depending on complexity)</p>' }
+        ]},
+        { id: 'icn2', step: 'STEP 02', title: 'Prepare Deregistration Documents', desc: 'Prepare all required deregistration application documents.', flow: [
+            { title: 'Prepare Documents', content: '<p>Required documents (strictly per the 2026 Business Entity Registration Document Standards):</p><p>1. Individual Business Registration (Filing) Application Form</p><p>2. Tax clearance certificate (not required if the registration authority and tax authority have shared tax clearance information electronically)</p><p>3. If the operator is deceased and the heir is handling deregistration: notarized documents or effective legal documents (including but not limited to court judgments, rulings, mediation agreements, or people\'s mediation agreements confirmed by the court, and other documents sufficient to prove inheritance) as proof of inheritance</p><p>4. Copy of identity certificate of the person submitting the application (agent)</p><p><strong>Note:</strong> If a paper business license was collected, surrender the original license(s).</p>' }
+        ]},
+        { id: 'icn3', step: 'STEP 03', title: 'Submit Deregistration Application', desc: 'Submit the deregistration application to the registration authority.', flow: [
+            { title: 'Submit Application', content: '<p>Submit via the following methods:</p><p><strong>Online Processing:</strong></p><p>• Submit via the Shanghai "One-Stop Online" platform (zwdt.sh.gov.cn)</p><p>• Upload document images/copies via the fully electronic process</p><p><strong>Offline Processing:</strong></p><p>• Submit documents at the Market Supervision Bureau registration window of each district</p><p>• Documents should use A4 white paper; sign with black or blue ink pen</p><p><strong>Processing time:</strong> Typically 5-10 business days with complete documents.</p>' }
+        ]},
+        { id: 'icn4', step: 'STEP 04', title: 'Complete Deregistration', desc: 'Collect deregistration certificate, surrender business license, entity status terminated.', flow: [
+            { title: 'Collect Deregistration Certificate', content: '<p>After approval:</p><p>• The registration authority issues the "Deregistration Approval Notice"</p><p>• If a paper business license was collected, surrender the original license(s)</p><p>• The individual business entity status is terminated</p><p><strong>Follow-up Items:</strong></p><p>• It is recommended to close the business bank account</p><p>• Cancel any registered seals (if applicable)</p><p>• Deregister social insurance and housing fund accounts (if applicable)</p>' }
         ]}
     ]}
 };

@@ -44,6 +44,78 @@ function applyLang() {
         if (normalMeta[0]) normalMeta[0].lastChild.textContent = t('normalCancelCycle');
         if (normalMeta[1]) normalMeta[1].lastChild.textContent = t('normalCancelNeedLiquidation');
     }
+    // ---- 注册类型选择页 (entity-startup page) ----
+    var entityStartupTitle = document.querySelector('#page-entity-startup .page-title');
+    if (entityStartupTitle) entityStartupTitle.textContent = t('entityStartupTitle');
+    var entityStartupIntro = document.querySelector('#page-entity-startup .cancel-type-intro');
+    if (entityStartupIntro) entityStartupIntro.textContent = t('entityStartupIntro');
+    var companyRegCard = document.querySelector('#page-entity-startup .cancel-type-card[data-entity-startup="company"]');
+    if (companyRegCard) {
+        companyRegCard.querySelector('.cancel-type-title span[data-i18n]').textContent = t('entityCompanyReg');
+        companyRegCard.querySelector('.cancel-type-badge').textContent = t('entityBadgeCorp');
+        companyRegCard.querySelector('.cancel-type-desc').textContent = t('entityCompanyRegDesc');
+        var companyMeta = companyRegCard.querySelectorAll('.cancel-type-meta span span[data-i18n]');
+        if (companyMeta[0]) companyMeta[0].textContent = t('entityCompanyCycle');
+        if (companyMeta[1]) companyMeta[1].textContent = t('entityCompanyFea');
+    }
+    var indivRegCard = document.querySelector('#page-entity-startup .cancel-type-card[data-entity-startup="individual"]');
+    if (indivRegCard) {
+        indivRegCard.querySelector('.cancel-type-title span[data-i18n]').textContent = t('entityIndivReg');
+        indivRegCard.querySelector('.cancel-type-badge').textContent = t('entityBadgeIndiv');
+        indivRegCard.querySelector('.cancel-type-desc').textContent = t('entityIndivRegDesc');
+        var indivMeta = indivRegCard.querySelectorAll('.cancel-type-meta span span[data-i18n]');
+        if (indivMeta[0]) indivMeta[0].textContent = t('entityIndivCycle');
+        if (indivMeta[1]) indivMeta[1].textContent = t('entityIndivFea');
+    }
+
+    // ---- 注销类型选择页 (entity-cancel page) ----
+    var entityCancelTitle = document.querySelector('#page-entity-cancel .page-title');
+    if (entityCancelTitle) entityCancelTitle.textContent = t('entityCancelTitle');
+    var entityCancelIntro = document.querySelector('#page-entity-cancel .cancel-type-intro');
+    if (entityCancelIntro) entityCancelIntro.textContent = t('entityCancelIntro');
+    var companyCancelCard = document.querySelector('#page-entity-cancel .cancel-type-card[data-entity-cancel="company"]');
+    if (companyCancelCard) {
+        companyCancelCard.querySelector('.cancel-type-title span[data-i18n]').textContent = t('entityCompanyCancel');
+        companyCancelCard.querySelector('.cancel-type-badge').textContent = t('entityBadgeCorp');
+        companyCancelCard.querySelector('.cancel-type-desc').textContent = t('entityCompanyCancelDesc');
+        var ccMeta = companyCancelCard.querySelectorAll('.cancel-type-meta span span[data-i18n]');
+        if (ccMeta[0]) ccMeta[0].textContent = t('entityCompanyCancelCycle');
+        if (ccMeta[1]) ccMeta[1].textContent = t('entityCompanyCancelFea');
+    }
+    var indivCancelCard = document.querySelector('#page-entity-cancel .cancel-type-card[data-entity-cancel="individual"]');
+    if (indivCancelCard) {
+        indivCancelCard.querySelector('.cancel-type-title span[data-i18n]').textContent = t('entityIndivCancel');
+        indivCancelCard.querySelector('.cancel-type-badge').textContent = t('entityBadgeIndiv');
+        indivCancelCard.querySelector('.cancel-type-desc').textContent = t('entityIndivCancelDesc');
+        var icMeta = indivCancelCard.querySelectorAll('.cancel-type-meta span span[data-i18n]');
+        if (icMeta[0]) icMeta[0].textContent = t('entityIndivCancelCycle');
+        if (icMeta[1]) icMeta[1].textContent = t('entityIndivCancelFea');
+    }
+
+    // ---- 个体工商户注销方式选择页 (individual-cancel-type page) ----
+    var indivCancelTypeTitle = document.querySelector('#page-individual-cancel-type .page-title');
+    if (indivCancelTypeTitle) indivCancelTypeTitle.textContent = t('indivCancelTypeTitle');
+    var indivCancelTypeIntro = document.querySelector('#page-individual-cancel-type .cancel-type-intro');
+    if (indivCancelTypeIntro) indivCancelTypeIntro.textContent = t('indivCancelTypeIntro');
+    var indivSimpleCard = document.querySelector('#page-individual-cancel-type .cancel-type-card[data-indiv-cancel="simple"]');
+    if (indivSimpleCard) {
+        indivSimpleCard.querySelector('.cancel-type-title span[data-i18n]').textContent = t('indivSimpleCancel');
+        indivSimpleCard.querySelector('.cancel-type-badge').textContent = t('badgeRecommended');
+        indivSimpleCard.querySelector('.cancel-type-desc').textContent = t('indivSimpleCancelDesc');
+        var isMeta = indivSimpleCard.querySelectorAll('.cancel-type-meta span span[data-i18n]');
+        if (isMeta[0]) isMeta[0].textContent = t('indivSimpleCancelCycle');
+        if (isMeta[1]) isMeta[1].textContent = t('indivSimpleCancelFea');
+    }
+    var indivNormalCard = document.querySelector('#page-individual-cancel-type .cancel-type-card[data-indiv-cancel="normal"]');
+    if (indivNormalCard) {
+        indivNormalCard.querySelector('.cancel-type-title span[data-i18n]').textContent = t('indivNormalCancel');
+        indivNormalCard.querySelector('.cancel-type-badge').textContent = t('badgeStandard');
+        indivNormalCard.querySelector('.cancel-type-desc').textContent = t('indivNormalCancelDesc');
+        var inMeta = indivNormalCard.querySelectorAll('.cancel-type-meta span span[data-i18n]');
+        if (inMeta[0]) inMeta[0].textContent = t('indivNormalCancelCycle');
+        if (inMeta[1]) inMeta[1].textContent = t('indivNormalCancelFea');
+    }
+
     // 流程细则页标题
     var flowTitleEl = document.getElementById('flow-title');
     if (flowTitleEl) flowTitleEl.textContent = t('flowTitle');
@@ -82,7 +154,7 @@ function renderLingangPolicies() {
         let currentAxisModuleData = null;
         let currentAxisKey = null;
         let currentCancelType = null;
-        const pages = { home: document.getElementById('page-home'), axis: document.getElementById('page-axis'), 'cancel-type': document.getElementById('page-cancel-type'), flow: document.getElementById('page-flow'), grid: document.getElementById('page-grid'), drawer: document.getElementById('page-drawer'), region: document.getElementById('page-region'), policy: document.getElementById('page-policy'), article: document.getElementById('page-article'), lingang: document.getElementById('page-lingang') };
+        const pages = { home: document.getElementById('page-home'), axis: document.getElementById('page-axis'), 'entity-startup': document.getElementById('page-entity-startup'), 'cancel-type': document.getElementById('page-cancel-type'), 'entity-cancel': document.getElementById('page-entity-cancel'), 'individual-cancel-type': document.getElementById('page-individual-cancel-type'), flow: document.getElementById('page-flow'), grid: document.getElementById('page-grid'), drawer: document.getElementById('page-drawer'), region: document.getElementById('page-region'), policy: document.getElementById('page-policy'), article: document.getElementById('page-article'), lingang: document.getElementById('page-lingang') };
         const overlays = { action: document.getElementById('overlay-action') };
 
         function switchPage(targetId, direction = 'forward') {
@@ -102,7 +174,9 @@ function renderLingangPolicies() {
                 const key = btn.getAttribute('data-key');
                 if (type === 'axis') {
                     if (key === 'cancel') {
-                        switchPage('page-cancel-type', 'forward');
+                        switchPage('page-entity-cancel', 'forward');
+                    } else if (key === 'startup') {
+                        switchPage('page-entity-startup', 'forward');
                     } else {
                         currentCancelType = null;
                         renderAxis(key);
@@ -118,11 +192,53 @@ function renderLingangPolicies() {
         // ============================================================
         //  5. 注销方式选择
         // ============================================================
-        document.querySelectorAll('.cancel-type-card').forEach(card => {
+        document.querySelectorAll('#page-cancel-type .cancel-type-card').forEach(card => {
             card.addEventListener('click', () => {
                 const type = card.getAttribute('data-cancel');
                 currentCancelType = type;
                 renderAxis('cancel_' + type);
+                switchPage('page-axis', 'forward');
+            });
+        });
+
+        // ============================================================
+        //  5b. 注册类型选择（公司/个体工商户）
+        // ============================================================
+        document.querySelectorAll('#page-entity-startup .cancel-type-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const type = card.getAttribute('data-entity-startup');
+                currentCancelType = null;
+                if (type === 'company') {
+                    renderAxis('startup');
+                } else if (type === 'individual') {
+                    renderAxis('individual_startup');
+                }
+                switchPage('page-axis', 'forward');
+            });
+        });
+
+        // ============================================================
+        //  5c. 注销类型选择（公司/个体工商户）
+        // ============================================================
+        document.querySelectorAll('#page-entity-cancel .cancel-type-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const type = card.getAttribute('data-entity-cancel');
+                if (type === 'company') {
+                    switchPage('page-cancel-type', 'forward');
+                } else if (type === 'individual') {
+                    switchPage('page-individual-cancel-type', 'forward');
+                }
+            });
+        });
+
+        // ============================================================
+        //  5d. 个体工商户注销方式选择（简易/普通）
+        // ============================================================
+        document.querySelectorAll('#page-individual-cancel-type .cancel-type-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const type = card.getAttribute('data-indiv-cancel');
+                currentCancelType = 'individual_' + type;
+                renderAxis('individual_cancel_' + type);
                 switchPage('page-axis', 'forward');
             });
         });
@@ -134,6 +250,17 @@ function renderLingangPolicies() {
             const data = getAxisData(key);
             currentAxisKey = key;
             document.getElementById('axis-title').innerText = data.title;
+            // Set correct back target for page-axis based on the flow
+            var axisBackBtn = document.querySelector('#page-axis .back-btn');
+            if (key === 'startup' || key === 'individual_startup') {
+                axisBackBtn.setAttribute('data-back', 'entity-startup');
+            } else if (key === 'cancel_simple' || key === 'cancel_normal') {
+                axisBackBtn.setAttribute('data-back', 'cancel-type');
+            } else if (key === 'individual_cancel_simple' || key === 'individual_cancel_normal') {
+                axisBackBtn.setAttribute('data-back', 'individual-cancel-type');
+            } else {
+                axisBackBtn.setAttribute('data-back', 'home');
+            }
             const container = document.getElementById('axis-content');
             let html = '<div class="axis-track"><div class="axis-line"></div>';
             data.modules.forEach(mod => {
@@ -183,6 +310,9 @@ function renderLingangPolicies() {
         document.getElementById('btn-offline').addEventListener('click', () => {
             closeAction();
             renderFlow(currentAxisModuleData);
+            // Set correct back target for flow page
+            var flowBackBtn = document.querySelector('#page-flow .back-btn');
+            flowBackBtn.setAttribute('data-back', 'axis');
             switchPage('page-flow', 'forward');
         });
 
@@ -536,11 +666,19 @@ function renderLingangPolicies() {
             btn.addEventListener('click', () => {
                 const backTarget = btn.getAttribute('data-back');
                 if (backTarget === 'axis' && currentCancelType) {
-                    // 从流程页返回时，如果来自注销，回到注销选择页
-                    currentCancelType = null;
-                    switchPage('page-cancel-type', 'backward');
+                    // 从流程页返回时，根据来源回到对应的选择页
+                    if (currentCancelType === 'simple' || currentCancelType === 'normal') {
+                        currentCancelType = null;
+                        switchPage('page-cancel-type', 'backward');
+                    } else if (currentCancelType === 'individual_simple' || currentCancelType === 'individual_normal') {
+                        currentCancelType = null;
+                        switchPage('page-individual-cancel-type', 'backward');
+                    } else {
+                        currentCancelType = null;
+                        switchPage('page-entity-cancel', 'backward');
+                    }
                 } else {
-                    switchPage(`page-${backTarget}`, 'backward');
+                    switchPage('page-' + backTarget, 'backward');
                 }
             });
         });
