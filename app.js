@@ -116,11 +116,30 @@ function applyLang() {
         if (inMeta[1]) inMeta[1].textContent = t('indivNormalCancelFea');
     }
 
-    // 流程细则页标题
+    // 流程细则页标题：正在查看某流程时保留/重建动态标题，避免被通用标题冲掉
     var flowTitleEl = document.getElementById('flow-title');
-    if (flowTitleEl) flowTitleEl.textContent = t('flowTitle');
+    if (flowTitleEl) {
+        if (typeof currentAxisModuleData !== 'undefined' && currentAxisModuleData && currentAxisKey) {
+            var _ad = getAxisData(currentAxisKey);
+            var _m = _ad && _ad.modules.find(function (m) { return m.id === currentAxisModuleData.id; });
+            flowTitleEl.textContent = (_m ? _m.title : currentAxisModuleData.title) + (currentLang === 'en' ? ' Process' : ' 流程');
+        } else {
+            flowTitleEl.textContent = t('flowTitle');
+        }
+    }
     // 经营服务大厅页标题
     document.querySelector('#page-grid .page-title').textContent = t('gridTitle');
+
+    // 搜索页与首页搜索入口
+    var searchTitleEl = document.getElementById('search-title');
+    if (searchTitleEl) searchTitleEl.textContent = t('searchTitle');
+    var searchInputEl = document.getElementById('search-input');
+    if (searchInputEl) {
+        searchInputEl.placeholder = t('searchPlaceholder');
+        searchInputEl.setAttribute('aria-label', t('searchTitle'));
+    }
+    var homeSearchText = document.getElementById('home-search-text');
+    if (homeSearchText) homeSearchText.textContent = t('searchPlaceholder');
 
     // 清缓存，下次进入页面时自动重渲染
     var gc = document.getElementById('grid-content');
@@ -154,7 +173,7 @@ function renderLingangPolicies() {
         let currentAxisModuleData = null;
         let currentAxisKey = null;
         let currentCancelType = null;
-        const pages = { home: document.getElementById('page-home'), axis: document.getElementById('page-axis'), 'entity-startup': document.getElementById('page-entity-startup'), 'cancel-type': document.getElementById('page-cancel-type'), 'entity-cancel': document.getElementById('page-entity-cancel'), 'individual-cancel-type': document.getElementById('page-individual-cancel-type'), flow: document.getElementById('page-flow'), grid: document.getElementById('page-grid'), drawer: document.getElementById('page-drawer'), region: document.getElementById('page-region'), policy: document.getElementById('page-policy'), article: document.getElementById('page-article'), lingang: document.getElementById('page-lingang') };
+        const pages = { home: document.getElementById('page-home'), axis: document.getElementById('page-axis'), 'entity-startup': document.getElementById('page-entity-startup'), 'cancel-type': document.getElementById('page-cancel-type'), 'entity-cancel': document.getElementById('page-entity-cancel'), 'individual-cancel-type': document.getElementById('page-individual-cancel-type'), flow: document.getElementById('page-flow'), grid: document.getElementById('page-grid'), drawer: document.getElementById('page-drawer'), region: document.getElementById('page-region'), policy: document.getElementById('page-policy'), article: document.getElementById('page-article'), lingang: document.getElementById('page-lingang'), search: document.getElementById('page-search') };
         const overlays = { action: document.getElementById('overlay-action') };
 
         function switchPage(targetId, direction = 'forward') {
@@ -278,10 +297,21 @@ function renderLingangPolicies() {
             container.querySelectorAll('.axis-module').forEach((el, index) => {
                 el.addEventListener('click', () => {
                     currentAxisModuleData = data.modules[index];
-                    const linkConfig = currentLang === 'en' ? getOnlineLinkEN(currentAxisKey) : getOnlineLink(currentAxisKey);
+                    const linkConfig = currentLang === 'en' ? getOnlineLinkEN(currentAxisKey, currentAxisModuleData.id) : getOnlineLink(currentAxisKey, currentAxisModuleData.id);
                     const onlineBtn = document.getElementById('btn-online');
                     onlineBtn.href = linkConfig.url;
+                    onlineBtn.dataset.url = linkConfig.url;
                     onlineBtn.querySelector('.sheet-btn-desc').textContent = linkConfig.desc;
+                    const offlineBtn = document.getElementById('btn-offline');
+                    const offlineNote = document.getElementById('offline-note');
+                    if (currentAxisModuleData.onlineOnly) {
+                        offlineBtn.classList.add('disabled');
+                        offlineNote.textContent = t('offlineUnavailable');
+                        offlineNote.classList.remove('hidden');
+                    } else {
+                        offlineBtn.classList.remove('disabled');
+                        offlineNote.classList.add('hidden');
+                    }
                     overlays.action.classList.remove('hidden');
                 });
             });
@@ -301,13 +331,16 @@ function renderLingangPolicies() {
         document.getElementById('btn-cancel-action').addEventListener('click', closeAction);
         overlays.action.addEventListener('click', closeAction);
 
-        // 线上办理：根据当前业务设置外链
+        // 线上办理：复制办理网址到剪贴板（demo 环境不直接跳转）
         const onlineBtn = document.getElementById('btn-online');
         onlineBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            copyText(onlineBtn.dataset.url || onlineBtn.href, t('onlineCopied'));
             closeAction();
         });
 
         document.getElementById('btn-offline').addEventListener('click', () => {
+            if (document.getElementById('btn-offline').classList.contains('disabled')) return;
             closeAction();
             renderFlow(currentAxisModuleData);
             // Set correct back target for flow page
@@ -359,12 +392,12 @@ function renderLingangPolicies() {
                 if (node.type === 'window') {
                     html += `
                         <div class="flow-node window-step ${index === 0 ? 'active' : ''}">
-                            <div class="node-header"><div class="node-number">${index + 1}</div><div class="node-title">${node.title}</div><div class="node-icon">▼</div></div>
+                            <div class="node-header"><div class="node-number">${index + 1}</div><div class="node-title">${node.title}</div><div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
                             <div class="node-details">
                                 <div class="flow-rich-text">
                                     <div class="district-trigger" onclick="openDistrictSheet()">
                                         <span class="district-trigger-label">${t('selectCurrent')}</span>
-                                        <span class="district-trigger-value"><span id="selected-district-name">${getWindowData("pudong").name}</span><span class="district-trigger-arrow">▼</span></span>
+                                        <span class="district-trigger-value"><span id="selected-district-name">${getWindowData("pudong").name}</span><span class="district-trigger-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></span>
                                     </div>
                                     <div id="window-info-container">
                                         ${renderWindowCard('pudong')}
@@ -375,7 +408,7 @@ function renderLingangPolicies() {
                 } else {
                     html += `
                         <div class="flow-node ${index === 0 ? 'active' : ''}">
-                            <div class="node-header"><div class="node-number">${index + 1}</div><div class="node-title">${node.title}</div><div class="node-icon">▼</div></div>
+                            <div class="node-header"><div class="node-number">${index + 1}</div><div class="node-title">${node.title}</div><div class="node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
                             <div class="node-details"><div class="flow-rich-text">${node.content}</div></div>
                         </div>`;
                 }
@@ -397,7 +430,7 @@ function renderLingangPolicies() {
             if (!w) return '';
             return `<div class="window-card">
                 <div class="window-card-header"><svg viewBox="0 0 24 24" stroke="#CCB486"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>${w.office}</div>
-                <div class="window-info-row"><span class="window-info-icon"><svg viewBox="0 0 24 24" stroke="#5A8A6A"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>${w.address}</span></div>
+                <div class="window-info-row"><span class="window-info-icon"><svg viewBox="0 0 24 24" stroke="#4A7B8C"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span>${w.address}</span></div>
                 <div class="window-info-row"><span class="window-info-icon"><svg viewBox="0 0 24 24" stroke="#C4862C"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span>${w.time}</span></div>
                 <div class="window-info-row"><span class="window-info-icon"><svg viewBox="0 0 24 24" stroke="#8B1A1A"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span>${w.phone}</span></div>
                 <div class="window-actions">
@@ -408,10 +441,27 @@ function renderLingangPolicies() {
         }
 
         function copyAddress(address) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(address).then(() => {
-                    showToast(currentLang==='en'?'Address Copied':'地址已复制');
-                });
+            copyText(address, currentLang==='en'?'Address Copied':'地址已复制');
+        }
+
+        // 通用复制：优先 clipboard API，降级 execCommand，均失败则直接展示文本
+        function copyText(text, okMsg) {
+            const fallback = () => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                let ok = false;
+                try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+                document.body.removeChild(ta);
+                showToast(ok ? okMsg : text, ok ? 2000 : 5000);
+            };
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => showToast(okMsg)).catch(fallback);
+            } else {
+                fallback();
             }
         }
 
@@ -433,7 +483,7 @@ function renderLingangPolicies() {
                 const d = _wd[key];
                 html += `<div class="district-grid-item" data-key="${key}" onclick="selectDistrict('${key}')">
                     <span class="district-option-name">${d.name}</span>
-                    <span class="district-option-check">✓</span>
+                    <span class="district-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                 </div>`;
             });
             html += '</div>';
@@ -513,7 +563,7 @@ function renderLingangPolicies() {
             container.dataset.bound = 'true';
             container.dataset.lang = currentLang;
 
-            let html = '<div class="region-grid-header"><h3>${t("selectDistrict")}</h3><p>${t("viewPolicy")}</p></div>';
+            let html = `<div class="region-grid-header"><h3>${t("selectDistrict")}</h3><p>${t("viewPolicy")}</p></div>`;
             html += '<div class="region-grid-flat">';
 
             getRegionGridData().forEach(r => {
@@ -566,13 +616,14 @@ function renderLingangPolicies() {
         // ============================================================
         //  12. 政策正文渲染
         // ============================================================
-        function renderArticle(title, content) {
+        function renderArticle(title, content, publisher) {
             const container = document.getElementById('article-content');
             container.innerHTML = `
                 <div class="article-header">
                     <h1 class="article-title">${title}</h1>
                     <div class="article-meta">
-                        <span>${t("publisher")}</span>
+                        <span>${publisher || t("publisher")}</span>
+                        <span>${t("docNo")}</span>
                         <span>${t("effectDate")}</span>
                     </div>
                 </div>
@@ -621,7 +672,7 @@ function renderLingangPolicies() {
                 if (data.drawers && data.drawers.length > 0) {
                     renderDrawerContent(data.drawers);
                 } else {
-                    document.getElementById('drawer-body').innerHTML = '<p class="no-data-msg">${t("noDataMsg")}</p>';
+                    document.getElementById('drawer-body').innerHTML = `<p class="no-data-msg">${t("noDataMsg")}</p>`;
                 }
             }
         }
@@ -631,11 +682,11 @@ function renderLingangPolicies() {
             if (!body) return;
             body.innerHTML = drawers.map(group => `
                 <div class="drawer-group">
-                    <div class="d-level-1-header"><span>${group.category}</span><span class="d-level-1-icon">▶</span></div>
+                    <div class="d-level-1-header"><span>${group.category}</span><span class="d-level-1-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></span></div>
                     <div class="d-level-1-body"><div class="d-level-1-inner">
                         ${group.items.map(item => `
                             <div class="d-level-2-item">
-                                <div class="d-level-2-header"><span>${item.title}</span><span class="d-level-2-icon">▼</span></div>
+                                <div class="d-level-2-header"><span>${item.title}</span><span class="d-level-2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></div>
                                 <div class="d-level-2-body"><div class="d-rich-text">${item.content}</div></div>
                             </div>
                         `).join('')}
@@ -665,20 +716,256 @@ function renderLingangPolicies() {
         document.querySelectorAll('.back-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const backTarget = btn.getAttribute('data-back');
-                if (backTarget === 'axis' && currentCancelType) {
-                    // 从流程页返回时，根据来源回到对应的选择页
-                    if (currentCancelType === 'simple' || currentCancelType === 'normal') {
-                        currentCancelType = null;
-                        switchPage('page-cancel-type', 'backward');
-                    } else if (currentCancelType === 'individual_simple' || currentCancelType === 'individual_normal') {
-                        currentCancelType = null;
-                        switchPage('page-individual-cancel-type', 'backward');
-                    } else {
-                        currentCancelType = null;
-                        switchPage('page-entity-cancel', 'backward');
-                    }
+                if (backTarget === 'axis') {
+                    // 统一返回横轴流程页，再由横轴页按自身来源返回对应选择页
+                    currentCancelType = null;
+                    switchPage('page-axis', 'backward');
                 } else {
+                    // 搜索等路径直达内层页后，返回目标页可能尚未渲染，先确保内容就绪
+                    if (backTarget === 'grid') renderGrid();
+                    else if (backTarget === 'region') renderRegionMap();
+                    else if (backTarget === 'lingang') renderLingangPolicies();
                     switchPage('page-' + backTarget, 'backward');
                 }
             });
         });
+
+
+        // ============================================================
+        //  16. 无障碍增强（键盘操作 + 读屏语义，自动覆盖动态渲染内容）
+        // ============================================================
+        (function () {
+            var CLICKABLE = '.cancel-type-card, .axis-module, .grid-item, .doc-item, .rg-cell, ' +
+                '.d-level-1-header, .d-level-2-header, .node-header, .district-grid-item, ' +
+                '.district-trigger, .flow-type-tab, .drawer-type-tab, .home-search, .fab-item';
+
+            function enhance(root) {
+                if (root.nodeType !== 1) return;
+                var els = [];
+                if (root.matches && root.matches(CLICKABLE)) els.push(root);
+                if (root.querySelectorAll) els = els.concat(Array.prototype.slice.call(root.querySelectorAll(CLICKABLE)));
+                els.forEach(function (el) {
+                    if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+                    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+                });
+                syncExpanded(root);
+            }
+
+            function syncExpanded(root) {
+                if (!root.querySelectorAll) return;
+                root.querySelectorAll('.flow-node').forEach(function (n) {
+                    var h = n.querySelector('.node-header');
+                    if (h) h.setAttribute('aria-expanded', n.classList.contains('active') ? 'true' : 'false');
+                });
+                root.querySelectorAll('.drawer-group').forEach(function (g) {
+                    var h = g.querySelector('.d-level-1-header');
+                    if (h) h.setAttribute('aria-expanded', g.classList.contains('open') ? 'true' : 'false');
+                });
+                root.querySelectorAll('.d-level-2-item').forEach(function (it) {
+                    var h = it.querySelector('.d-level-2-header');
+                    if (h) h.setAttribute('aria-expanded', it.classList.contains('open') ? 'true' : 'false');
+                });
+            }
+
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (m) {
+                    if (m.type === 'childList') {
+                        m.addedNodes.forEach(enhance);
+                    } else if (m.type === 'attributes' && m.target.nodeType === 1) {
+                        var t = m.target;
+                        if (t.matches('.flow-node, .drawer-group, .d-level-2-item')) {
+                            var page = t.closest('.page') || t.parentElement;
+                            if (page) syncExpanded(page);
+                        }
+                    }
+                });
+            });
+            observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+            enhance(document.body);
+
+            // 键盘：Enter / Space 触发 role="button" 元素（原生 button/a 浏览器已自带）
+            document.addEventListener('keydown', function (e) {
+                if (e.key !== 'Enter' && e.key !== ' ') return;
+                var el = e.target && e.target.closest ? e.target.closest('[role="button"]') : null;
+                if (!el) return;
+                var tag = el.tagName;
+                if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT') return;
+                e.preventDefault();
+                el.click();
+            });
+        })();
+
+        // ============================================================
+        //  17. 全局搜索（静态数据前端检索，随当前语言即时建索引）
+        // ============================================================
+        function stripHtml(s) {
+            return (s || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+        }
+
+        var _searchCache = { lang: null, idx: null };
+
+        function buildSearchIndex() {
+            if (_searchCache.lang === currentLang && _searchCache.idx) return _searchCache.idx;
+            var idx = [];
+            // 流程指引（开办 / 注销全部横轴模块）
+            ['startup', 'individual_startup', 'cancel_simple', 'cancel_normal', 'individual_cancel_simple', 'individual_cancel_normal'].forEach(function (key) {
+                var data = getAxisData(key);
+                if (!data) return;
+                data.modules.forEach(function (mod) {
+                    var nodes = [];
+                    if (mod.flows) { Object.keys(mod.flows).forEach(function (k) { nodes = nodes.concat(mod.flows[k]); }); }
+                    else if (mod.flow) { nodes = mod.flow; }
+                    var body = nodes.map(function (n) { return n.title + ' ' + stripHtml(n.content); }).join(' ');
+                    idx.push({ type: 'flow', axisKey: key, moduleId: mod.id, title: mod.title, group: data.title, text: stripHtml(mod.desc) + ' ' + body });
+                });
+            });
+            // 各区政策
+            getRegionGridData().forEach(function (r) {
+                var d = getRegionPolicyData(r.key);
+                if (!d) return;
+                d.policies.forEach(function (p, i) {
+                    idx.push({ type: 'policy', regionKey: r.key, policyIndex: i, title: p.q, group: d.name, text: stripHtml(p.a) });
+                });
+            });
+            // 临港专项政策
+            var lgGroup = currentLang === 'en' ? 'Lingang Special Area' : '临港新片区';
+            getLingangPolicies().forEach(function (p, i) {
+                idx.push({ type: 'lingang', policyIndex: i, title: p.q, group: lgGroup, text: stripHtml(p.a) });
+            });
+            // 服务事项（经营服务大厅各服务库条目）
+            getGridData().forEach(function (g) {
+                if (g.isRegion || g.isLingang) return;
+                function collect(groups, drawerType) {
+                    (groups || []).forEach(function (grp) {
+                        (grp.items || []).forEach(function (item) {
+                            idx.push({ type: 'service', gridId: g.id, drawerType: drawerType, itemTitle: item.title,
+                                title: item.title.replace(/^Q:\s*/, ''), group: g.name, text: stripHtml(item.content) });
+                        });
+                    });
+                }
+                if (g.drawers) collect(g.drawers, null);
+                if (g.drawersMap) Object.keys(g.drawersMap).forEach(function (k) { collect(g.drawersMap[k], k); });
+            });
+            _searchCache = { lang: currentLang, idx: idx };
+            return idx;
+        }
+
+        var _lastResults = [];
+
+        function renderSearch() {
+            var input = document.getElementById('search-input');
+            var box = document.getElementById('search-results');
+            if (!input || !box) return;
+            var q = input.value.trim().toLowerCase();
+            if (!q) {
+                box.innerHTML = '<p class="no-data-msg">' + t('searchHint') + '</p>';
+                _lastResults = [];
+                return;
+            }
+            var terms = q.split(/\s+/);
+            _lastResults = buildSearchIndex().filter(function (item) {
+                var hay = (item.title + ' ' + item.group + ' ' + item.text).toLowerCase();
+                return terms.every(function (term) { return hay.indexOf(term) !== -1; });
+            });
+            if (!_lastResults.length) {
+                box.innerHTML = '<p class="no-data-msg">' + t('searchNoResult') + '</p>';
+                return;
+            }
+            var groups = [
+                { key: 'flow', label: t('searchGroupFlow') },
+                { key: 'policy', label: t('searchGroupPolicy') },
+                { key: 'service', label: t('searchGroupService') }
+            ];
+            var html = '';
+            groups.forEach(function (g) {
+                var items = _lastResults.map(function (r, i) { return { r: r, i: i }; }).filter(function (x) {
+                    return x.r.type === g.key || (g.key === 'policy' && x.r.type === 'lingang');
+                });
+                if (!items.length) return;
+                html += '<div class="search-group-title">' + g.label + '</div>';
+                items.forEach(function (x) {
+                    html += '<div class="doc-item doc-item-clickable" data-sidx="' + x.i + '">' +
+                        '<div class="doc-title">' + x.r.title + '</div>' +
+                        '<div class="doc-meta"><span class="doc-tag">' + x.r.group + '</span></div>' +
+                        '</div>';
+                });
+            });
+            box.innerHTML = html;
+            box.querySelectorAll('.doc-item').forEach(function (el) {
+                el.addEventListener('click', function () {
+                    goSearchResult(_lastResults[parseInt(el.getAttribute('data-sidx'), 10)]);
+                });
+            });
+        }
+
+        function goSearchResult(item) {
+            if (!item) return;
+            if (item.type === 'flow') {
+                renderAxis(item.axisKey);
+                var data = getAxisData(item.axisKey);
+                var mod = data.modules.find(function (m) { return m.id === item.moduleId; });
+                if (!mod) return;
+                currentAxisModuleData = mod;
+                renderFlow(mod);
+                document.querySelector('#page-flow .back-btn').setAttribute('data-back', 'axis');
+                switchPage('page-flow', 'forward');
+            } else if (item.type === 'policy') {
+                renderRegionPolicy(item.regionKey);
+                var d = getRegionPolicyData(item.regionKey);
+                var p = d && d.policies[item.policyIndex];
+                if (!p) return;
+                renderArticle(p.q, p.a);
+                document.querySelector('#page-article .back-btn').setAttribute('data-back', 'policy');
+                switchPage('page-article', 'forward');
+            } else if (item.type === 'lingang') {
+                renderLingangPolicies();
+                var p2 = getLingangPolicies()[item.policyIndex];
+                if (!p2) return;
+                renderArticle(p2.q, p2.a, currentLang === 'en' ? 'Lingang Special Area Administration' : '临港新片区管委会');
+                document.querySelector('#page-article .back-btn').setAttribute('data-back', 'lingang');
+                switchPage('page-article', 'forward');
+            } else if (item.type === 'service') {
+                renderDrawer(item.gridId);
+                // 命中条目在非默认类型 Tab 下时，先切到对应 Tab
+                if (item.drawerType) {
+                    document.querySelectorAll('#drawer-content .drawer-type-tab').forEach(function (tab) {
+                        if (tab.getAttribute('data-type') === item.drawerType) tab.click();
+                    });
+                }
+                switchPage('page-drawer', 'forward');
+                setTimeout(function () {
+                    document.querySelectorAll('#drawer-body .d-level-2-item').forEach(function (it) {
+                        var h = it.querySelector('.d-level-2-header span');
+                        if (h && h.textContent === item.itemTitle) {
+                            it.classList.add('open');
+                            var grp = it.closest('.drawer-group');
+                            if (grp) grp.classList.add('open');
+                            it.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                }, 80);
+            }
+        }
+
+        // 首页搜索入口：进入搜索页并聚焦输入框
+        document.getElementById('home-search').addEventListener('click', function () {
+            switchPage('page-search', 'forward');
+            renderSearch();
+            setTimeout(function () { document.getElementById('search-input').focus(); }, 300);
+        });
+
+        // 输入防抖检索
+        (function () {
+            var timer = null;
+            document.getElementById('search-input').addEventListener('input', function () {
+                clearTimeout(timer);
+                timer = setTimeout(renderSearch, 150);
+            });
+        })();
+
+        // 语言切换后按新语言重建索引并重渲染当前检索结果
+        var _origToggleLang = toggleLang;
+        toggleLang = function () {
+            _origToggleLang();
+            renderSearch();
+        };
