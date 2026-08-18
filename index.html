@@ -12,9 +12,14 @@
     <!-- ========== 首页 ========== -->
     <div id="page-home" class="page">
         <div class="home-content">
-            <h1 class="main-title">政企通</h1>
-            <p class="sub-title">企业全生命周期服务平台</p>
+            <!-- 左侧品牌区（PC 端两栏布局） -->
+            <div class="home-brand">
+                <h1 class="main-title">政企通</h1>
+                <p class="sub-title">企业全生命周期服务平台</p>
+            </div>
 
+            <!-- 右侧服务区（PC 端两栏布局：搜索 + 主入口按钮） -->
+            <div class="home-service">
             <!-- 全局搜索入口 -->
             <div class="home-search" id="home-search">
                 <svg class="home-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -22,15 +27,6 @@
                     <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
                 <span id="home-search-text">搜索政策、办事流程、服务事项</span>
-            </div>
-
-            <!-- 语言切换滑块（移动端绝对定位到右上角，PC 端内联居中于此处） -->
-            <div class="lang-toggle-wrap">
-                <div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
-                    <span class="lang-option lang-zh active" id="lang-zh">中</span>
-                    <span class="lang-option lang-en" id="lang-en">EN</span>
-                    <span class="lang-slider" id="lang-slider"></span>
-                </div>
             </div>
 
             <div class="btn-group">
@@ -62,6 +58,16 @@
                     <span class="btn-text">企业注销</span>
                     <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                 </button>
+            </div>
+            </div><!-- /.home-service -->
+        </div>
+
+        <!-- 语言切换滑块：移动端与 PC 端均绝对定位到首页右上角 -->
+        <div class="lang-toggle-wrap">
+            <div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
+                <span class="lang-option lang-zh active" id="lang-zh">中</span>
+                <span class="lang-option lang-en" id="lang-en">EN</span>
+                <span class="lang-slider" id="lang-slider"></span>
             </div>
         </div>
     </div>

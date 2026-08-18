@@ -50,13 +50,13 @@
     transform: translateX(100%);
 }
 
-/* ---- PC 端：恢复原始尺寸与居中内联位置 ---- */
+/* ---- PC 端：放大尺寸并固定到首页右上角 ---- */
 @media (min-width: 768px) {
     .lang-toggle-wrap {
-        position: static;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 36px;
+        position: absolute;
+        top: 28px;
+        right: 40px;
+        z-index: 30;
     }
     .lang-toggle {
         padding: 3px;

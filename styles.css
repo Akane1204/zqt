@@ -493,6 +493,104 @@ input:focus-visible {
 .sheet-btn.disabled { opacity: 0.45; pointer-events: none; }
 
 /* ============================================================
+   PC 首页两栏布局 (>= 1024px)：左侧品牌区 + 右侧服务区
+   ============================================================ */
+@media (min-width: 1024px) {
+    /* --- 背景装饰光晕 --- */
+    #page-home::before {
+        content: '';
+        position: absolute;
+        top: -180px;
+        right: -120px;
+        width: 480px;
+        height: 480px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(204,180,134,0.16) 0%, rgba(204,180,134,0) 70%);
+        pointer-events: none;
+    }
+    #page-home::after {
+        content: '';
+        position: absolute;
+        bottom: -220px;
+        left: -140px;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(139,26,26,0.05) 0%, rgba(139,26,26,0) 70%);
+        pointer-events: none;
+    }
+
+    .home-content {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 96px;
+        align-items: center;
+        max-width: 1180px;
+        padding: 0 48px;
+        text-align: left;
+    }
+
+    /* --- 左侧品牌区 --- */
+    .main-title {
+        font-size: 52px;
+        letter-spacing: 6px;
+        margin-bottom: 18px;
+    }
+    .sub-title {
+        font-size: 18px;
+        letter-spacing: 2px;
+        margin-bottom: 0;
+    }
+    .sub-title::after {
+        content: '';
+        display: block;
+        width: 56px;
+        height: 3px;
+        margin-top: 28px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #CCB486, rgba(204,180,134,0.15));
+    }
+
+    /* --- 右侧服务区 --- */
+    .home-search {
+        width: 100%;
+        max-width: none;
+        margin: 0 0 28px;
+        padding: 15px 22px;
+    }
+    .btn-group {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .home-btn {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 16px;
+        padding: 28px 24px;
+        border-radius: 14px;
+        border-left: 4px solid #CCB486;
+        text-align: left;
+    }
+    .home-btn .btn-text {
+        flex: 1;
+        font-size: 17px;
+    }
+    .home-btn .btn-arrow {
+        display: block;
+        width: 18px;
+        height: 18px;
+    }
+    .home-btn.primary {
+        border-left-color: rgba(255,255,255,0.45);
+    }
+    .home-btn.primary .btn-arrow {
+        color: #fff;
+    }
+}
+
+/* ============================================================
    矮屏手机适配 (<= 640px 高)：进一步压缩间距，保证不溢出
    ============================================================ */
 @media (max-height: 640px) {
