@@ -1,9 +1,9 @@
-/* ---- 语言切换滑块 ---- */
+/* ---- 语言切换滑块（移动端：右上角缩小悬浮） ---- */
 .lang-toggle-wrap {
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-bottom: 24px;
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 30;
 }
 .lang-toggle {
     position: relative;
@@ -11,8 +11,8 @@
     align-items: center;
     background: rgba(204, 180, 134, 0.18);
     border: 1.5px solid rgba(204, 180, 134, 0.4);
-    border-radius: 24px;
-    padding: 3px;
+    border-radius: 20px;
+    padding: 2px;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
@@ -24,8 +24,8 @@
 .lang-option {
     position: relative;
     z-index: 2;
-    padding: 7px 20px;
-    font-size: 14px;
+    padding: 5px 12px;
+    font-size: 12px;
     font-weight: 600;
     color: #8A7D6B;
     transition: color 0.3s;
@@ -36,16 +36,39 @@
 }
 .lang-slider {
     position: absolute;
-    top: 3px;
-    left: 3px;
-    width: calc(50% - 3px);
-    height: calc(100% - 6px);
+    top: 2px;
+    left: 2px;
+    width: calc(50% - 2px);
+    height: calc(100% - 4px);
     background: linear-gradient(135deg, #CCB486, #B8A070);
-    border-radius: 20px;
+    border-radius: 16px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
     box-shadow: 0 2px 8px rgba(204, 180, 134, 0.35);
 }
 .lang-toggle.en .lang-slider {
     transform: translateX(100%);
+}
+
+/* ---- PC 端：恢复原始尺寸，仍在右上角 ---- */
+@media (min-width: 768px) {
+    .lang-toggle-wrap {
+        top: 24px;
+        right: 32px;
+    }
+    .lang-toggle {
+        padding: 3px;
+        border-radius: 24px;
+    }
+    .lang-option {
+        padding: 7px 20px;
+        font-size: 14px;
+    }
+    .lang-slider {
+        top: 3px;
+        left: 3px;
+        width: calc(50% - 3px);
+        height: calc(100% - 6px);
+        border-radius: 20px;
+    }
 }
