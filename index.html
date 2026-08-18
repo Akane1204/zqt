@@ -11,6 +11,14 @@
 
     <!-- ========== 首页 ========== -->
     <div id="page-home" class="page">
+        <!-- 语言切换滑块（右上角） -->
+        <div class="lang-toggle-wrap">
+            <div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
+                <span class="lang-option lang-zh active" id="lang-zh">中</span>
+                <span class="lang-option lang-en" id="lang-en">EN</span>
+                <span class="lang-slider" id="lang-slider"></span>
+            </div>
+        </div>
         <div class="home-content">
             <h1 class="main-title">政企通</h1>
             <p class="sub-title">企业全生命周期服务平台</p>
@@ -22,15 +30,6 @@
                     <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
                 <span id="home-search-text">搜索政策、办事流程、服务事项</span>
-            </div>
-
-            <!-- 语言切换滑块 -->
-            <div class="lang-toggle-wrap">
-                <div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
-                    <span class="lang-option lang-zh active" id="lang-zh">中</span>
-                    <span class="lang-option lang-en" id="lang-en">EN</span>
-                    <span class="lang-slider" id="lang-slider"></span>
-                </div>
             </div>
 
             <div class="btn-group">
