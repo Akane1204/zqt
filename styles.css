@@ -33,7 +33,7 @@
         .sub-title { font-size: 15px; color: #6B5D4A; margin-bottom: 30px; }
         .btn-group { display: flex; flex-direction: column; gap: 14px; }
         .btn-icon { display: none; }
-        .home-btn { background-color: #fff; color: #2C2416; border: 1px solid #E5DDD0; padding: 24px 20px; font-size: 18px; border-radius: 12px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #CCB486; }
+        .home-btn { background-color: #fff; color: #2C2416; border: 1px solid #E5DDD0; padding: 30px 20px; font-size: 18px; border-radius: 12px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #CCB486; }
         .home-btn:active { transform: scale(0.98); background-color: #F5F0E8; }
         .home-btn .btn-arrow { width: 20px; height: 20px; color: #8B1A1A; margin-top: -2px; flex-shrink: 0; }
         .node-icon svg { width: 14px; height: 14px; display: block; }
@@ -500,8 +500,7 @@ input:focus-visible {
     .sub-title { margin-bottom: 20px; }
     .home-content { margin-top: 6vh; }
     .home-search { margin: -4px auto 14px; padding: 10px 16px; }
-    .lang-toggle-wrap { margin-bottom: 16px; }
-    .home-btn { padding: 16px 20px; font-size: 16px; }
+    .home-btn { padding: 20px; font-size: 16px; }
     .btn-group { gap: 10px; }
     .axis-module { padding: 32px 24px 26px; min-height: 0; }
     .axis-track { padding: 24px 20px; }
