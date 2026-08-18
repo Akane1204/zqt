@@ -2,7 +2,8 @@
 .lang-toggle-wrap {
     display: flex;
     justify-content: center;
-    margin-bottom: 36px;
+    flex-shrink: 0;
+    margin-bottom: 24px;
 }
 .lang-toggle {
     position: relative;
