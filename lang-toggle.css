@@ -11,7 +11,7 @@
     align-items: center;
     background: rgba(204, 180, 134, 0.18);
     border: 1.5px solid rgba(204, 180, 134, 0.4);
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 2px;
     cursor: pointer;
     user-select: none;
@@ -41,7 +41,7 @@
     width: calc(50% - 2px);
     height: calc(100% - 4px);
     background: linear-gradient(135deg, #CCB486, #B8A070);
-    border-radius: 16px;
+    border-radius: 8px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
     box-shadow: 0 2px 8px rgba(204, 180, 134, 0.35);
@@ -50,15 +50,17 @@
     transform: translateX(100%);
 }
 
-/* ---- PC 端：恢复原始尺寸，仍在右上角 ---- */
+/* ---- PC 端：恢复原始尺寸与居中内联位置 ---- */
 @media (min-width: 768px) {
     .lang-toggle-wrap {
-        top: 24px;
-        right: 32px;
+        position: static;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 36px;
     }
     .lang-toggle {
         padding: 3px;
-        border-radius: 24px;
+        border-radius: 10px;
     }
     .lang-option {
         padding: 7px 20px;
@@ -69,6 +71,6 @@
         left: 3px;
         width: calc(50% - 3px);
         height: calc(100% - 6px);
-        border-radius: 20px;
+        border-radius: 8px;
     }
 }
