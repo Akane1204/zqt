@@ -315,7 +315,7 @@ function renderLingangPolicies() {
                     overlays.action.classList.remove('hidden');
                 });
             });
-            // 横轴导航辅助：移动端 = 首次进入自动演示滑动(nudge) + 底部分页圆点；PC 端 = 两端翻页箭头
+            // 横轴导航辅助：移动端 = 首次进入自动演示滑动(nudge) + 流程图下方分页圆点；PC 端 = 两端翻页箭头
             const navWrap = container.parentElement;
             navWrap.querySelectorAll('.axis-dots, .axis-nav-arrow').forEach(el => el.remove());
 
