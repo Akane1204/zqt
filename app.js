@@ -315,6 +315,74 @@ function renderLingangPolicies() {
                     overlays.action.classList.remove('hidden');
                 });
             });
+            // 横轴导航辅助：移动端 = 首次进入自动演示滑动(nudge) + 底部分页圆点；PC 端 = 两端翻页箭头
+            const navWrap = container.parentElement;
+            navWrap.querySelectorAll('.axis-dots, .axis-nav-arrow').forEach(el => el.remove());
+
+            // --- 分页圆点（移动端显示，PC 端由 CSS 隐藏），点击可跳转到对应卡片 ---
+            const dotsBox = document.createElement('div');
+            dotsBox.className = 'axis-dots';
+            data.modules.forEach((mod, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'axis-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    const card = container.querySelectorAll('.axis-module')[i];
+                    if (card) container.scrollTo({ left: card.offsetLeft + card.offsetWidth / 2 - container.clientWidth / 2, behavior: 'smooth' });
+                });
+                dotsBox.appendChild(dot);
+            });
+            navWrap.appendChild(dotsBox);
+
+            // --- 翻页箭头（PC 端显示，移动端由 CSS 隐藏） ---
+            const prevArrow = document.createElement('button');
+            prevArrow.className = 'axis-nav-arrow prev disabled';
+            prevArrow.setAttribute('aria-label', t('prevStep'));
+            prevArrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+            const nextArrow = document.createElement('button');
+            nextArrow.className = 'axis-nav-arrow next';
+            nextArrow.setAttribute('aria-label', t('nextStep'));
+            nextArrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+            const scrollStep = () => {
+                const card = container.querySelector('.axis-module');
+                return card ? card.offsetWidth + 32 : container.clientWidth; // 32 = PC 端卡片间距
+            };
+            prevArrow.addEventListener('click', () => container.scrollBy({ left: -scrollStep(), behavior: 'smooth' }));
+            nextArrow.addEventListener('click', () => container.scrollBy({ left: scrollStep(), behavior: 'smooth' }));
+            navWrap.appendChild(prevArrow);
+            navWrap.appendChild(nextArrow);
+
+            // --- 滚动状态同步：圆点高亮 + 箭头可用性（滚轮/拖动/箭头翻页都会触发） ---
+            const updateNav = () => {
+                const cards = container.querySelectorAll('.axis-module');
+                const center = container.scrollLeft + container.clientWidth / 2;
+                let activeIdx = 0, minDist = Infinity;
+                cards.forEach((card, i) => {
+                    const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+                    if (d < minDist) { minDist = d; activeIdx = i; }
+                });
+                dotsBox.querySelectorAll('.axis-dot').forEach((dot, i) => dot.classList.toggle('active', i === activeIdx));
+                prevArrow.classList.toggle('disabled', container.scrollLeft <= 5);
+                nextArrow.classList.toggle('disabled', container.scrollLeft >= container.scrollWidth - container.clientWidth - 5);
+            };
+            container.onscroll = updateNav;
+            setTimeout(updateNav, 50);
+
+            // --- 移动端首次进入：自动演示滑动，同一会话只演一次 ---
+            var nudged = false;
+            try { nudged = !!sessionStorage.getItem('axisNudgeShown'); } catch (e) {}
+            if (!nudged && data.modules.length > 1 && window.innerWidth < 768 && container.scrollWidth > container.clientWidth) {
+                setTimeout(() => {
+                    if (container.scrollLeft > 10) return; // 用户已自行滑动，不再演示
+                    try { sessionStorage.setItem('axisNudgeShown', '1'); } catch (e) {}
+                    const peek = Math.min(container.clientWidth * 0.35, 140);
+                    container.style.scrollSnapType = 'none'; // 演示期间临时关闭吸附，否则 mandatory 吸附会把演示滚动劫持到最近卡片
+                    container.scrollTo({ left: peek, behavior: 'smooth' });
+                    setTimeout(() => {
+                        if (container.scrollLeft <= peek + 10) container.scrollTo({ left: 0, behavior: 'smooth' });
+                        setTimeout(() => { container.style.scrollSnapType = ''; }, 600);
+                    }, 800);
+                }, 600);
+            }
             // PC 端：鼠标滚轮转横向滚动
             container.onwheel = function(e) {
                 if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {

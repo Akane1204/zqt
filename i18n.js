@@ -59,6 +59,8 @@ const i18nUI = {
         serviceLibrary: '服务库',
         policyCompilation: '政策汇编',
         guidBtn: '办理指引 →',
+        prevStep: '上一张',
+        nextStep: '下一张',
         MonFri: '周一至周五 9:00-11:30, 13:30-16:30',
         // ---- 选择注册类型页 ----
         entityStartupTitle: '选择注册类型',
@@ -161,6 +163,8 @@ const i18nUI = {
         serviceLibrary: ' Service Library',
         policyCompilation: ' Policy Compilation',
         guidBtn: 'Processing Guide →',
+        prevStep: 'Previous card',
+        nextStep: 'Next card',
         MonFri: 'Mon-Fri 9:00-11:30, 13:30-16:30',
         // ---- Entity Type Selection Pages ----
         entityStartupTitle: 'Select Registration Type',
