@@ -743,22 +743,22 @@ const gridGroupsEN = [
 ];
 
 const regionGridDataEN = [
-    { key: 'huangpu', name: 'Huangpu', color: '#CCB486' },
-    { key: 'jingan', name: "Jing'an", color: '#CCB486' },
-    { key: 'xuhui', name: 'Xuhui', color: '#CCB486' },
-    { key: 'changning', name: 'Changning', color: '#CCB486' },
-    { key: 'putuo', name: 'Putuo', color: '#A68E5D' },
-    { key: 'hongkou', name: 'Hongkou', color: '#A68E5D' },
-    { key: 'yangpu', name: 'Yangpu', color: '#A68E5D' },
-    { key: 'pudong', name: 'Pudong New Area', color: '#A68E5D' },
-    { key: 'minhang', name: 'Minhang', color: '#A68E5D' },
-    { key: 'baoshan', name: 'Baoshan', color: '#D4C4A0' },
-    { key: 'jiading', name: 'Jiading', color: '#D4C4A0' },
-    { key: 'songjiang', name: 'Songjiang', color: '#D4C4A0' },
-    { key: 'jinshan', name: 'Jinshan', color: '#D4C4A0' },
-    { key: 'qingpu', name: 'Qingpu', color: '#D4C4A0' },
-    { key: 'fengxian', name: 'Fengxian', color: '#8B7355' },
-    { key: 'chongming', name: 'Chongming', color: '#8B7355' }
+    { key: 'huangpu', name: 'Huangpu', color: '#4A90E2' },
+    { key: 'jingan', name: "Jing'an", color: '#4A90E2' },
+    { key: 'xuhui', name: 'Xuhui', color: '#4A90E2' },
+    { key: 'changning', name: 'Changning', color: '#4A90E2' },
+    { key: 'putuo', name: 'Putuo', color: '#3578C6' },
+    { key: 'hongkou', name: 'Hongkou', color: '#3578C6' },
+    { key: 'yangpu', name: 'Yangpu', color: '#3578C6' },
+    { key: 'pudong', name: 'Pudong New Area', color: '#3578C6' },
+    { key: 'minhang', name: 'Minhang', color: '#3578C6' },
+    { key: 'baoshan', name: 'Baoshan', color: '#9CC3F0' },
+    { key: 'jiading', name: 'Jiading', color: '#9CC3F0' },
+    { key: 'songjiang', name: 'Songjiang', color: '#9CC3F0' },
+    { key: 'jinshan', name: 'Jinshan', color: '#9CC3F0' },
+    { key: 'qingpu', name: 'Qingpu', color: '#9CC3F0' },
+    { key: 'fengxian', name: 'Fengxian', color: '#3E6491' },
+    { key: 'chongming', name: 'Chongming', color: '#3E6491' }
 ];
 
 const regionPolicyDataEN = {

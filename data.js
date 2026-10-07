@@ -687,20 +687,20 @@ const gridGroups = [
 ];
 
 const regionGridData = [
-    { key: 'huangpu', name: '黄浦区', color: '#CCB486' },
-    { key: 'jingan', name: '静安区', color: '#CCB486' },
-    { key: 'xuhui', name: '徐汇区', color: '#CCB486' },
-    { key: 'changning', name: '长宁区', color: '#CCB486' },
-    { key: 'putuo', name: '普陀区', color: '#A68E5D' },
-    { key: 'hongkou', name: '虹口区', color: '#A68E5D' },
-    { key: 'yangpu', name: '杨浦区', color: '#A68E5D' },
-    { key: 'pudong', name: '浦东新区', color: '#A68E5D' },
-    { key: 'minhang', name: '闵行区', color: '#A68E5D' },
-    { key: 'baoshan', name: '宝山区', color: '#D4C4A0' },
-    { key: 'jiading', name: '嘉定区', color: '#D4C4A0' },
-    { key: 'songjiang', name: '松江区', color: '#D4C4A0' },
-    { key: 'jinshan', name: '金山区', color: '#D4C4A0' },
-    { key: 'qingpu', name: '青浦区', color: '#D4C4A0' },
-    { key: 'fengxian', name: '奉贤区', color: '#8B7355' },
-    { key: 'chongming', name: '崇明区', color: '#8B7355' }
+    { key: 'huangpu', name: '黄浦区', color: '#4A90E2' },
+    { key: 'jingan', name: '静安区', color: '#4A90E2' },
+    { key: 'xuhui', name: '徐汇区', color: '#4A90E2' },
+    { key: 'changning', name: '长宁区', color: '#4A90E2' },
+    { key: 'putuo', name: '普陀区', color: '#3578C6' },
+    { key: 'hongkou', name: '虹口区', color: '#3578C6' },
+    { key: 'yangpu', name: '杨浦区', color: '#3578C6' },
+    { key: 'pudong', name: '浦东新区', color: '#3578C6' },
+    { key: 'minhang', name: '闵行区', color: '#3578C6' },
+    { key: 'baoshan', name: '宝山区', color: '#9CC3F0' },
+    { key: 'jiading', name: '嘉定区', color: '#9CC3F0' },
+    { key: 'songjiang', name: '松江区', color: '#9CC3F0' },
+    { key: 'jinshan', name: '金山区', color: '#9CC3F0' },
+    { key: 'qingpu', name: '青浦区', color: '#9CC3F0' },
+    { key: 'fengxian', name: '奉贤区', color: '#3E6491' },
+    { key: 'chongming', name: '崇明区', color: '#3E6491' }
 ];

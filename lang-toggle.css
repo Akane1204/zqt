@@ -9,8 +9,8 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    background: rgba(204, 180, 134, 0.18);
-    border: 1.5px solid rgba(204, 180, 134, 0.4);
+    background: rgba(74, 144, 226, 0.18);
+    border: 1.5px solid rgba(74, 144, 226, 0.4);
     border-radius: 10px;
     padding: 2px;
     cursor: pointer;
@@ -19,7 +19,7 @@
     transition: border-color 0.3s;
 }
 .lang-toggle:hover {
-    border-color: rgba(204, 180, 134, 0.7);
+    border-color: rgba(74, 144, 226, 0.7);
 }
 .lang-option {
     position: relative;
@@ -27,7 +27,7 @@
     padding: 5px 12px;
     font-size: 12px;
     font-weight: 600;
-    color: #8A7D6B;
+    color: #5B7492;
     transition: color 0.3s;
     line-height: 1;
 }
@@ -40,11 +40,11 @@
     left: 2px;
     width: calc(50% - 2px);
     height: calc(100% - 4px);
-    background: linear-gradient(135deg, #CCB486, #B8A070);
+    background: linear-gradient(135deg, #4A90E2, #3578C6);
     border-radius: 8px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
-    box-shadow: 0 2px 8px rgba(204, 180, 134, 0.35);
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.35);
 }
 .lang-toggle.en .lang-slider {
     transform: translateX(100%);
