@@ -42,18 +42,18 @@
         .district-grid-item .district-option-check svg { width: 14px; height: 14px; }
 
         /* --- 横向拖动轴 --- */
-        #page-axis .content-area { padding: 20px 0; background-color: #fff; min-height: 0; overflow: hidden; position: relative; display: flex; flex-direction: column; align-items: stretch; }
+        #page-axis .content-area { padding: 20px 0; background-color: #F5F8FC; min-height: 0; overflow: hidden; position: relative; display: flex; flex-direction: column; align-items: stretch; }
         .axis-scroll-container { overflow-x: auto; overflow-y: hidden; height: auto; min-height: 0; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .axis-scroll-container::-webkit-scrollbar { display: none; }
         .axis-track { position: relative; display: flex; gap: 24px; padding: 32px 20px 8px; min-width: 100%; width: max-content; }
-        .axis-line { position: absolute; top: 68px; left: 0; right: 0; height: 2px; background: repeating-linear-gradient(to right, #D8E4F2, #D8E4F2 6px, transparent 6px, transparent 12px); z-index: 1; }
-        .axis-module { width: 75vw; flex-shrink: 0; max-width: 280px; scroll-snap-align: center; background: #fff; border: 1px solid #D8E4F2; border-radius: 16px; padding: 40px 28px 32px; position: relative; z-index: 2; box-shadow: 0 8px 24px rgba(0,0,0,0.04); transition: transform 0.2s; display: flex; flex-direction: column; cursor: pointer; min-height: min(380px, 55vh); min-height: min(380px, 55dvh); }
+        .axis-line { position: absolute; top: 68px; left: 0; right: 0; height: 2px; background: repeating-linear-gradient(to right, #A8C6EE, #A8C6EE 6px, transparent 6px, transparent 12px); z-index: 1; }
+        .axis-module { width: 75vw; flex-shrink: 0; max-width: 280px; scroll-snap-align: center; background: #fff; border: 1px solid #DCE7F5; border-radius: 16px; padding: 40px 28px 32px; position: relative; z-index: 2; box-shadow: 0 8px 24px rgba(29,91,216,0.06); transition: transform 0.2s; display: flex; flex-direction: column; cursor: pointer; min-height: min(380px, 55vh); min-height: min(380px, 55dvh); }
         .axis-module:active { transform: scale(0.98); background-color: #F7FAFE; }
         .axis-node-dot { width: 14px; height: 14px; background: #8B1A1A; border: 4px solid #fff; border-radius: 50%; position: absolute; top: -7px; left: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
         .axis-step { font-size: 13px; color: #8B1A1A; font-weight: 600; letter-spacing: 1px; margin-top: 10px; margin-bottom: 12px; font-family: 'Times New Roman', serif; }
         .axis-m-title { font-size: 24px; font-weight: 700; color: #1E3A5F; margin-bottom: 20px; line-height: 1.3; }
         .axis-m-desc { font-size: 15px; color: #46617E; line-height: 1.8; flex: 1; margin-top: 10px;}
-        .axis-m-btn { align-self: flex-start; margin-top: auto; padding: 10px 20px; background: rgba(30,58,95,0.03); color: #1E3A5F; font-size: 14px; font-weight: 500; border-radius: 20px; border: 1px solid rgba(30,58,95,0.12); }
+        .axis-m-btn { align-self: flex-start; margin-top: auto; padding: 10px 20px; background: #E3F0FC; color: #1D5BD8; font-size: 14px; font-weight: 500; border-radius: 20px; border: 1px solid rgba(29,91,216,0.15); }
 
         /* --- 横轴导航辅助：分页圆点（移动端）+ 翻页箭头（PC 端，基础样式隐藏） --- */
         .axis-dots { position: relative; flex: 0 0 auto; align-self: center; margin: 8px 0 0; padding: 4px; display: flex; gap: 8px; z-index: 10; }
@@ -294,7 +294,7 @@
     .btn-icon { display: block; width: 28px; height: 28px; flex-shrink: 0; }
     .home-btn {
         flex: 1;
-        padding: 32px 24px; font-size: 16px; border-radius: 16px;
+        padding: 48px 24px; font-size: 16px; border-radius: 16px;
         border-left: none; border: 1px solid #D8E4F2;
         box-shadow: 0 6px 20px rgba(0,0,0,0.04);
         flex-direction: column; gap: 16px; text-align: center;
@@ -455,7 +455,7 @@
     .home-content { max-width: 720px; }
     .main-title { font-size: 40px; }
     .sub-title { font-size: 17px; margin-bottom: 64px; }
-    .home-btn { padding: 36px 24px; font-size: 16px; }
+    .home-btn { padding: 54px 24px; font-size: 16px; }
     .home-btn .btn-text { font-size: 18px; }
 
     .grid-container { max-width: 1000px; }
