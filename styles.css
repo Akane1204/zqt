@@ -59,6 +59,7 @@
         .axis-dots { position: relative; flex: 0 0 auto; align-self: center; margin: 8px 0 0; padding: 4px; display: flex; gap: 8px; z-index: 10; }
         .axis-dot { width: 6px; height: 6px; border-radius: 50%; background: #BCD0E8; cursor: pointer; transition: all 0.25s; -webkit-tap-highlight-color: transparent; }
         .axis-dot.active { width: 18px; border-radius: 3px; background: #4A90E2; }
+        .axis-progress { display: none; }
         .axis-nav-arrow { display: none; }
 
         /* --- 注销方式选择页 --- */
@@ -318,11 +319,7 @@
 
     /* --- 横轴导航 --- */
     #page-axis .content-area { padding: 40px 0; height: calc(100% - 80px); }
-    .axis-scroll-container { -webkit-overflow-scrolling: auto; scrollbar-width: auto; scroll-snap-type: x proximity; }
-    .axis-scroll-container::-webkit-scrollbar { display: block; height: 6px; }
-    .axis-scroll-container::-webkit-scrollbar-track { background: #E5EEF8; border-radius: 3px; }
-    .axis-scroll-container::-webkit-scrollbar-thumb { background: #4A90E2; border-radius: 3px; }
-    .axis-scroll-container::-webkit-scrollbar-thumb:hover { background: #3578C6; }
+    .axis-scroll-container { -webkit-overflow-scrolling: auto; scroll-snap-type: x proximity; }
     .axis-track { gap: 32px; padding: 40px 60px; }
     .axis-module {
         flex: 0 0 320px; max-width: 320px; width: auto; padding: 52px 36px 44px;
@@ -337,6 +334,9 @@
 
     /* --- 横轴翻页箭头（仅 PC） --- */
     .axis-dots { display: none; }
+    .axis-progress { display: block; position: relative; align-self: center; flex: 0 0 auto; width: 300px; height: 4px; margin: 28px auto 0; background: #D8E4F2; border-radius: 2px; }
+    .axis-progress.hidden-bar { visibility: hidden; }
+    .axis-progress-thumb { position: absolute; top: 0; left: 0; height: 100%; background: #4A90E2; border-radius: 2px; transition: left 0.12s ease-out, width 0.12s ease-out; }
     .axis-nav-arrow { display: flex; position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid #D8E4F2; color: #1D5BD8; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.08); z-index: 10; padding: 0; transition: opacity 0.3s, box-shadow 0.2s, background-color 0.2s; }
     .axis-nav-arrow:hover { background: #F7FAFE; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
     .axis-nav-arrow svg { width: 20px; height: 20px; }

@@ -317,7 +317,7 @@ function renderLingangPolicies() {
             });
             // 横轴导航辅助：移动端 = 首次进入自动演示滑动(nudge) + 流程图下方分页圆点；PC 端 = 两端翻页箭头
             const navWrap = container.parentElement;
-            navWrap.querySelectorAll('.axis-dots, .axis-nav-arrow').forEach(el => el.remove());
+            navWrap.querySelectorAll('.axis-dots, .axis-nav-arrow, .axis-progress').forEach(el => el.remove());
 
             // --- 分页圆点（移动端显示，PC 端由 CSS 隐藏），点击可跳转到对应卡片 ---
             const dotsBox = document.createElement('div');
@@ -351,6 +351,14 @@ function renderLingangPolicies() {
             navWrap.appendChild(prevArrow);
             navWrap.appendChild(nextArrow);
 
+            // --- 滚动进度条（PC 端显示，移动端由 CSS 隐藏），替代原生滚动条 ---
+            const progressBar = document.createElement('div');
+            progressBar.className = 'axis-progress';
+            const progressThumb = document.createElement('div');
+            progressThumb.className = 'axis-progress-thumb';
+            progressBar.appendChild(progressThumb);
+            navWrap.appendChild(progressBar);
+
             // --- 滚动状态同步：圆点高亮 + 箭头可用性（滚轮/拖动/箭头翻页都会触发） ---
             const updateNav = () => {
                 const cards = container.querySelectorAll('.axis-module');
@@ -363,6 +371,15 @@ function renderLingangPolicies() {
                 dotsBox.querySelectorAll('.axis-dot').forEach((dot, i) => dot.classList.toggle('active', i === activeIdx));
                 prevArrow.classList.toggle('disabled', container.scrollLeft <= 5);
                 nextArrow.classList.toggle('disabled', container.scrollLeft >= container.scrollWidth - container.clientWidth - 5);
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                if (maxScroll <= 0) {
+                    progressBar.classList.add('hidden-bar');
+                } else {
+                    progressBar.classList.remove('hidden-bar');
+                    const thumbW = Math.max(progressBar.clientWidth * container.clientWidth / container.scrollWidth, 24);
+                    progressThumb.style.width = thumbW + 'px';
+                    progressThumb.style.left = (progressBar.clientWidth - thumbW) * (container.scrollLeft / maxScroll) + 'px';
+                }
             };
             container.onscroll = updateNav;
             setTimeout(updateNav, 50);
